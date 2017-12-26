@@ -3,7 +3,7 @@
 # Table name: answers
 #
 #  id           :integer          not null, primary key
-#  content      :text
+#  content      :text             not null
 #  interview_id :integer
 #  section_id   :integer
 #  created_at   :datetime         not null
@@ -18,4 +18,5 @@
 class Answer < ApplicationRecord
   belongs_to :interview
   belongs_to :section
+  validates :content, presence: true
 end
