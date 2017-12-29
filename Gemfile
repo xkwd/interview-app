@@ -20,12 +20,14 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'faker', '~> 1.8', '>= 1.8.7'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec', '~> 3.7'
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'rubocop', require: false
+
 end
 
 group :test do
