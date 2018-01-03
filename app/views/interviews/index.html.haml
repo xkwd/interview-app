@@ -1,2 +1,2 @@
-%h1 Interviews#index
-%p Find me in app/views/interviews/index.html.haml
+- @interviews.each do |interview|
+  %h3= link_to truncate(interview.title, length: 60), interview_path(interview)

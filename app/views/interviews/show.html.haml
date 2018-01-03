@@ -1,2 +1,5 @@
-%h1 Interviews#show
-%p Find me in app/views/interviews/show.html.haml
+%h1= @interview.title
+%p= @interview.description
+- @interview.answers.each do |answer|
+  %h2= answer.section.name
+  %p=  answer.content
