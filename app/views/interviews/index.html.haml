@@ -1,0 +1,2 @@
+- @interviews.each do |interview|
+  %h3= link_to truncate(interview.title, length: 60), interview_path(interview)

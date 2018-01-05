@@ -9,6 +9,7 @@ gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.3'
 gem 'haml', '~> 5.0', '>= 5.0.4'
+gem 'haml-rails', '~> 1.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'puma', '~> 3.7'
@@ -18,8 +19,10 @@ gem 'sqlite3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
   gem 'faker', '~> 1.8', '>= 1.8.7'
   gem 'pry'
   gem 'pry-byebug'

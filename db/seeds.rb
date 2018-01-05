@@ -44,27 +44,27 @@ end
 
 (1..5).each do |i|
   Answer.create(
-    content: Faker::Lorem.paragraphs,
+    content: Faker::Lorem.paragraphs.join(),
     interview_id: 1,
     section_id: i
   )
   Answer.create(
-    content: Faker::Lorem.paragraphs,
+    content: Faker::Lorem.paragraphs.join(),
     interview_id: 2,
     section_id: i
   )
   Answer.create(
-    content: Faker::Lorem.paragraphs,
+    content: Faker::Lorem.paragraphs.join(),
     interview_id: 3,
     section_id: i
   )
   Answer.create(
-    content: Faker::Lorem.paragraphs,
+    content: Faker::Lorem.paragraphs.join(),
     interview_id: 4,
     section_id: i
   )
   Answer.create(
-    content: Faker::Lorem.paragraphs,
+    content: Faker::Lorem.paragraphs.join(),
     interview_id: 5,
     section_id: i
   )
