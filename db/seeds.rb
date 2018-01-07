@@ -1,71 +1,67 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
+Country.delete_all
 10.times do
-  Country.create(
+  Country.create!(
     name: Faker::Address.country
   )
 end
 
+City.delete_all
 10.times do
-  City.create(
+  City.create!(
     name: Faker::Address.city,
-    country_id: Faker::Number.between(1, 10)
+    country_id: Country.ids.sample
   )
 end
 
+Section.delete_all
 5.times do
-  Section.create(
+  Section.create!(
     name: Faker::Job.field
   )
 end
 
+User.delete_all
 5.times do
-  User.create(
+  User.create!(
     email: Faker::Internet.email,
-    password: Faker::Internet.password
+    password: "T3RyWrKcD9K"
   )
 end
 
+Interview.delete_all
 (1..5).each do |i|
-  Interview.create(
+  Interview.create!(
     title: Faker::Dune.saying,
     description: Faker::Movie.quote,
-    user_id: i
+    user_id: User.ids[i-1]
   )
 end
 
-
+Answer.delete_all
 (1..5).each do |i|
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 1,
-    section_id: i
+    interview_id: Interview.ids[0],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 2,
-    section_id: i
+    interview_id: Interview.ids[1],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 3,
-    section_id: i
+    interview_id: Interview.ids[2],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 4,
-    section_id: i
+    interview_id: Interview.ids[3],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 5,
-    section_id: i
+    interview_id: Interview.ids[4],
+    section_id: Section.ids[i-1]
   )
 end
