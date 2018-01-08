@@ -1,0 +1,10 @@
+= form_for @interview do |f|
+  %h1= f.text_field :title
+  %p= f.text_area :description
+  = f.fields_for :answers do |a|
+    = a.fields_for :section do |s|
+      %h2= s.text_field :name
+    %p= a.text_area :content
+  -# = f.fields_for :sections do |s|
+  -#   %h2= s.text_field :name
+  = f.submit "Update"

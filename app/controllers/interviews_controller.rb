@@ -7,6 +7,10 @@ class InterviewsController < ApplicationController
     @interview = Interview.find(params[:id])
   end
 
+  def edit
+    @interview = Interview.find(params[:id])
+  end
+
   def user_interview
     @interviews = current_user.interviews.order("created_at DESC")
   end

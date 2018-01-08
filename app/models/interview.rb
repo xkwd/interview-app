@@ -20,4 +20,5 @@ class Interview < ApplicationRecord
   has_many :sections, through: :answers
   belongs_to :user
   validates :title, :description, presence: true
+  accepts_nested_attributes_for :answers, :sections
 end
