@@ -17,8 +17,24 @@ class InterviewsController < ApplicationController
      end
   end
 
+  def update
+    @interview = Interview.find(params[:id])
+    if @interview.update(interview_params)
+      redirect_to interview_path(@interview)
+    else
+      render 'edit'
+    end
+  end
+
   def user_interview
     @interviews = current_user.interviews.order("created_at DESC")
+  end
+
+  private
+
+  def interview_params
+    params.require(:interview).permit(:title, :description, answers_attributes:
+                                     [:id, :content])
   end
 
 end
