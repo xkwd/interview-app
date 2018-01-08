@@ -5,6 +5,9 @@ RSpec.describe InterviewsController, type: :controller do
   describe InterviewsController do
     it { should route(:get, '/interviews').to(action: :index) }
     it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
+    it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
+    it { should route(:get, '/my_interviews').to(action: :user_interview) }
+    it { should use_before_action(:authenticate_user!) }
   end
 
   describe "logged user" do
