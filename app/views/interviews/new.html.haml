@@ -1,0 +1,16 @@
+= form_for @interview do |f|
+  - if @interview.errors.any?
+    %div Yay, #{pluralize(@interview.errors.count, "error")}:
+    %ul
+    - @interview.errors.full_messages.each do |msg|
+      %li= msg
+  %h1= f.text_field :title
+  %p= f.text_area :description
+
+  = f.fields_for :answers do |a|
+    = a.fields_for :section do |s|
+      %h2= s.label(:name, s.object.name)
+      %h2= s.hidden_field :id
+    %p= a.text_area :content
+    %p= a.hidden_field :section_id
+  = f.submit "Create"
