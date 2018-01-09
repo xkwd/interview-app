@@ -20,6 +20,7 @@ class InterviewsController < ApplicationController
   def update
     @interview = Interview.find(params[:id])
     if @interview.update(interview_params)
+      flash[:success] = 'The interview has been updated'
       redirect_to interview_path(@interview)
     else
       render 'edit'
