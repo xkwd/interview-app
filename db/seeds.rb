@@ -1,16 +1,48 @@
+country_cities_list = {"Australia" => ["Melbourne"],
+                       "Austria" => ["Vienna"],
+                       "Belgium" => ["Brussels"],
+                       "Canada" => ["Toronto", "Vancouver", "Montreal"],
+                       "China" => ["Beijing", "Shanghai"],
+                       "Cyprus" => ["Nicosia", "Larnaca"],
+                       "Czech Republic" => ["Prague", "Brno"],
+                       "Denmark" => ["Copenhagen"],
+                       "Finland" => ["Helsinki"],
+                       "France" => ["Paris", "Lyon"],
+                       "Germany" => ["Berlin", "Munich", "Dusseldorf"],
+                       "Greece" => ["Athens"],
+                       "Hungary" => ["Budapest"],
+                       "Ireland" => ["Dublin"],
+                       "Italy" => ["Milano"],
+                       "Israel" => ["Tel Aviv", "Jerusalem"],
+                       "Japan" => ["Tokyo"],
+                       "Latvia" => ["Riga"],
+                       "Lithuania" => ["Vilnius"],
+                       "Netherlands" => ["Amsterdam", "Eindhoven"],
+                       "New Zealand" => ["Auckland", "Wellington"],
+                       "Norway" => ["Oslo"],
+                       "Poland" => ["Krakow", "Wroclaw", "Warsaw", "Poznan"],
+                       "Portugal" => ["Lisbon", "Porto"],
+                       "Slovakia" => ["Bratislava", "Kosice"],
+                       "Slovenia" => ["Ljubljana"],
+                       "Spain" => ["Madrid", "Barcelona"],
+                       "Sweden" => ["Stockholm", "Gothenburg", "Malmo"],
+                       "Switzerland" => ["Zurich", "Geneva"],
+                       "United States" => ["New York", "Los Angeles"]}
 Country.delete_all
-10.times do
+country_cities_list.keys.each do |country|
   Country.create!(
-    name: Faker::Address.country
+    name: country
   )
 end
 
 City.delete_all
-10.times do
-  City.create!(
-    name: Faker::Address.city,
-    country_id: Country.ids.sample
-  )
+country_cities_list.each do |k,v|
+  v.each do |city|
+    City.create!(
+      name: city,
+      country_id: Country.find_by(name: k).id
+    )
+  end
 end
 
 Section.delete_all
@@ -33,7 +65,8 @@ Interview.delete_all
   Interview.create!(
     title: Faker::Dune.saying,
     description: Faker::Movie.quote,
-    user_id: User.ids[i-1]
+    user_id: User.ids[i-1],
+    country_id: Country.ids.sample
   )
 end
 
