@@ -11,6 +11,7 @@ class InterviewsController < ApplicationController
 
   def new
     @interview = current_user.interviews.build
+    @countries = Country.all.map{|c| [c.name, c.id]}
     Section.all.each do |section|
       @interview.answers.build(
         content: "",
@@ -31,6 +32,7 @@ class InterviewsController < ApplicationController
 
   def edit
     @interview = Interview.find(params[:id])
+    @countries = Country.all.map{|c| [c.name, c.id]}
     unless @interview.user_id == current_user.id
       flash[:notice] = 'Access denied as you are not owner of this Interview'
       redirect_to interview_path
@@ -54,7 +56,7 @@ class InterviewsController < ApplicationController
   private
 
   def interview_params
-    params.require(:interview).permit(:title, :description, answers_attributes:
+    params.require(:interview).permit(:title, :description, :country_id, answers_attributes:
                                      [:id, :content, :section_id])
   end
 

@@ -1,5 +1,6 @@
 %h1= @interview.title
+%h2= @interview.country.name
 %p= @interview.description
 - @interview.answers.each do |answer|
-  %h2= answer.section.name
+  %h3= answer.section.name
   %p=  answer.content

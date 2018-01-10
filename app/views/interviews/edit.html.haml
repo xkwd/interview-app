@@ -5,6 +5,7 @@
     - @interview.errors.full_messages.each do |msg|
       %li= msg
   %h1= f.text_field :title
+  = f.select :country_id, @countries, prompt: "Country"
   %p= f.text_area :description
   = f.fields_for :answers do |a|
     = a.fields_for :section do |s|
