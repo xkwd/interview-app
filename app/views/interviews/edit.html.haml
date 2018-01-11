@@ -10,5 +10,7 @@
   = f.fields_for :answers do |a|
     = a.fields_for :section do |s|
       %h2= s.label(:name, s.object.name)
+      = link_to "Show instructions", "#", class: "show-description"
+      %p.section-description=  s.label(:description, s.object.description)
     %p= a.text_area :content
   = f.submit "Update"

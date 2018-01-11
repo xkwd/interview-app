@@ -16,3 +16,14 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+// Custom
+
+document.addEventListener("turbolinks:load", function() {
+  $(function() {
+    $('a.show-description').click(function(event){
+      event.preventDefault();
+      $(this).next('p.section-description').toggle();
+    });
+  });
+})
