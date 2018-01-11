@@ -48,9 +48,12 @@ end
 Section.delete_all
 5.times do
   Section.create!(
-    name: Faker::Job.field
+    name: Faker::Job.field,
+    description: Faker::Lorem.paragraphs.join()
   )
 end
+
+
 
 User.delete_all
 5.times do
