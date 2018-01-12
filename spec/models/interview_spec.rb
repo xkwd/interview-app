@@ -10,6 +10,7 @@
 #  updated_at   :datetime         not null
 #  user_id      :integer
 #  country_id   :integer
+#  published    :boolean          default(FALSE)
 #
 # Indexes
 #

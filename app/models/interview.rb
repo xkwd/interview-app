@@ -10,6 +10,7 @@
 #  updated_at   :datetime         not null
 #  user_id      :integer
 #  country_id   :integer
+#  published    :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -24,4 +25,6 @@ class Interview < ApplicationRecord
   belongs_to :country
   validates :title, :description, presence: true
   accepts_nested_attributes_for :answers, :sections
+
+  scope :published, -> { where(published: true) }
 end

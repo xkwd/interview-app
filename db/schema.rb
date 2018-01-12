@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109220728) do
+ActiveRecord::Schema.define(version: 20180112220411) do
 
   create_table "answers", force: :cascade do |t|
     t.text "content", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180109220728) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "country_id"
+    t.boolean "published", default: false
     t.index ["country_id"], name: "index_interviews_on_country_id"
     t.index ["user_id"], name: "index_interviews_on_user_id"
   end

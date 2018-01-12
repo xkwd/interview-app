@@ -69,7 +69,8 @@ Interview.delete_all
     title: Faker::Dune.saying,
     description: Faker::Movie.quote,
     user_id: User.ids[i-1],
-    country_id: Country.ids.sample
+    country_id: Country.ids.sample,
+    published: true
   )
 end
 
