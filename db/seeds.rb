@@ -1,71 +1,104 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
-10.times do
-  Country.create(
-    name: Faker::Address.country
+country_cities_list = {"Australia" => ["Melbourne"],
+                       "Austria" => ["Vienna"],
+                       "Belgium" => ["Brussels"],
+                       "Canada" => ["Toronto", "Vancouver", "Montreal"],
+                       "China" => ["Beijing", "Shanghai"],
+                       "Cyprus" => ["Nicosia", "Larnaca"],
+                       "Czech Republic" => ["Prague", "Brno"],
+                       "Denmark" => ["Copenhagen"],
+                       "Finland" => ["Helsinki"],
+                       "France" => ["Paris", "Lyon"],
+                       "Germany" => ["Berlin", "Munich", "Dusseldorf"],
+                       "Greece" => ["Athens"],
+                       "Hungary" => ["Budapest"],
+                       "Ireland" => ["Dublin"],
+                       "Italy" => ["Milano"],
+                       "Israel" => ["Tel Aviv", "Jerusalem"],
+                       "Japan" => ["Tokyo"],
+                       "Latvia" => ["Riga"],
+                       "Lithuania" => ["Vilnius"],
+                       "Netherlands" => ["Amsterdam", "Eindhoven"],
+                       "New Zealand" => ["Auckland", "Wellington"],
+                       "Norway" => ["Oslo"],
+                       "Poland" => ["Krakow", "Wroclaw", "Warsaw", "Poznan"],
+                       "Portugal" => ["Lisbon", "Porto"],
+                       "Slovakia" => ["Bratislava", "Kosice"],
+                       "Slovenia" => ["Ljubljana"],
+                       "Spain" => ["Madrid", "Barcelona"],
+                       "Sweden" => ["Stockholm", "Gothenburg", "Malmo"],
+                       "Switzerland" => ["Zurich", "Geneva"],
+                       "United States" => ["New York", "Los Angeles"]}
+Country.delete_all
+country_cities_list.keys.each do |country|
+  Country.create!(
+    name: country
   )
 end
 
-10.times do
-  City.create(
-    name: Faker::Address.city,
-    country_id: Faker::Number.between(1, 10)
-  )
+City.delete_all
+country_cities_list.each do |k,v|
+  v.each do |city|
+    City.create!(
+      name: city,
+      country_id: Country.find_by(name: k).id
+    )
+  end
 end
 
+Section.delete_all
 5.times do
-  Section.create(
-    name: Faker::Job.field
+  Section.create!(
+    name: Faker::Job.field,
+    description: Faker::Lorem.paragraphs.join()
   )
 end
 
+
+
+User.delete_all
 5.times do
-  User.create(
+  User.create!(
     email: Faker::Internet.email,
-    password: Faker::Internet.password
+    password: "T3RyWrKcD9K"
   )
 end
 
+Interview.delete_all
 (1..5).each do |i|
-  Interview.create(
+  Interview.create!(
     title: Faker::Dune.saying,
     description: Faker::Movie.quote,
-    user_id: i
+    user_id: User.ids[i-1],
+    country_id: Country.ids.sample,
+    published: true
   )
 end
 
-
+Answer.delete_all
 (1..5).each do |i|
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 1,
-    section_id: i
+    interview_id: Interview.ids[0],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 2,
-    section_id: i
+    interview_id: Interview.ids[1],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 3,
-    section_id: i
+    interview_id: Interview.ids[2],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 4,
-    section_id: i
+    interview_id: Interview.ids[3],
+    section_id: Section.ids[i-1]
   )
-  Answer.create(
+  Answer.create!(
     content: Faker::Lorem.paragraphs.join(),
-    interview_id: 5,
-    section_id: i
+    interview_id: Interview.ids[4],
+    section_id: Section.ids[i-1]
   )
 end
