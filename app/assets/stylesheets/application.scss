@@ -15,6 +15,14 @@
  */
  @import "bootstrap";
 
- /* Custom */
+/* Custom */
 
- p.section-description { display: none; }
+p.section-description { display: none; }
+body>nav.navbar { margin-bottom: 40px; }
+.dropdown-menu a {
+    color: #212529 !important;
+}
+.navbar-brand small {
+  display: block;
+  font-size: 12px;
+}
