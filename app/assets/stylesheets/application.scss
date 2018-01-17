@@ -17,7 +17,7 @@
 
 /* Custom */
 
-p.section-description { display: none; }
+small.section-description { display: none; }
 body>nav.navbar { margin-bottom: 40px; }
 .dropdown-menu a {
     color: #212529 !important;
@@ -25,4 +25,10 @@ body>nav.navbar { margin-bottom: 40px; }
 .navbar-brand small {
   display: block;
   font-size: 12px;
+}
+span.instructions {
+  color: #008ace;
+  text-decoration: none;
+  border-bottom: 1px dashed #b2ccf0;
+  cursor: pointer;
 }
