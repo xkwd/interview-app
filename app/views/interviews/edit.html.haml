@@ -1,27 +1,36 @@
-.row
-  .col-md-8.offset-md-2
-    = form_for @interview do |f|
-      - if @interview.errors.any?
-        %div Yay, #{pluralize(@interview.errors.count, "error")}:
-        %ul
-        - @interview.errors.full_messages.each do |msg|
-          %li= msg
-      .form-group
-        %h3= f.label :title
-        = f.text_field :title, class: "form-control"
-      .form-group
-        %h3= f.label :description
-        %p= f.text_area :description, class: "form-control"
-      .form-row
-        .form-group.col-md-4
-          = f.select :country_id, @countries, {}, class: "form-control", prompt: "Country"
-      .form-group
-        = f.fields_for :answers do |a|
-          = a.fields_for :section do |s|
-            %h3= s.label(:name, s.object.name)
-            %span.instructions{"data-container" => "body", "data-content" => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.", "data-placement" => "top", "data-toggle" => "popover", :type => "button"} instructions
-            %small.section-description.form-text.text-muted= s.label(:description, s.object.description)
-          %p= a.text_area :content, class: "form-control", rows: "5"
-      .row
-        .col-sm-6.offset-sm-3
-          = f.submit "Create", type: "submit", class: "btn btn-info btn-block"
+.container.mt-4
+  .row
+    .col-md-8.offset-md-2
+      = form_for @interview do |f|
+        - if @interview.errors.any?
+          %div Yay, #{pluralize(@interview.errors.count, "error")}:
+          %ul
+          - @interview.errors.full_messages.each do |msg|
+            %li= msg
+        .form-group
+          .card.bg-light
+            .card-body
+              %h3.card-title= f.label :title
+              = f.text_field :title, class: "form-control"
+        .form-group
+          .card.bg-light
+            .card-body
+              %h3.card-title= f.label :description
+              %p= f.text_area :description, class: "form-control"
+        .form-row
+          .form-group.col-md-4
+            .card.bg-light
+              .card-body
+                = f.select :country_id, @countries, {}, class: "form-control", prompt: "Country"
+        .form-group
+          .card.bg-light
+            .card-body
+              = f.fields_for :answers do |a|
+                = a.fields_for :section do |s|
+                  %h3= s.label(:name, s.object.name)
+                  %span.instructions{"data-container" => "body", "data-content" => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.", "data-placement" => "top", "data-toggle" => "popover", :type => "button"} instructions
+                  %small.section-description.form-text.text-muted= s.label(:description, s.object.description)
+                %p= a.text_area :content, class: "form-control", rows: "5"
+        .row
+          .col-sm-6.offset-sm-3
+            = f.submit "Create", type: "submit", class: "btn btn-info btn-block"
