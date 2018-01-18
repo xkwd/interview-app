@@ -1,20 +1,11 @@
 .container-fluid.px-0
   .row.no-gutters
     .col-md-7
-      = link_to interview_path(@interviews.first) do
-        .img-container{style: "background-image: url('http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440');"}
-        %h3= truncate(@interviews.first.title, length: 60)
-      %p=  @interviews.first.description
+      = render partial: "interviews/interview", object: @interviews.first
     .col-md-5.d-md-block.d-sm-none.d-none
-      = link_to interview_path(@interviews.second) do
-        .img-container{style: "background-image: url('http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440');"}
-        %h3= truncate(@interviews.second.title, length: 60)
-      %p=  @interviews.second.description
+      = render partial: "interviews/interview", object: @interviews.second
 .container.px-0
   .row.no-gutters
     .col-lg-8.offset-lg-2
       - @interviews.drop(2).each do |interview|
-        = link_to interview_path(interview) do
-          .img-container{style: "background-image: url('http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440');"}
-          %h3= truncate(interview.title, length: 60)
-        %p=  interview.description
+        = render partial: "interviews/interview", object: interview
