@@ -17,8 +17,8 @@
 
 /* Custom */
 
+
 small.section-description { display: none; }
-body>nav.navbar { margin-bottom: 40px; }
 .dropdown-menu a {
     color: #212529 !important;
 }
@@ -31,4 +31,18 @@ span.instructions {
   text-decoration: none;
   border-bottom: 1px dashed #b2ccf0;
   cursor: pointer;
+}
+
+.img-container {
+  height: 300px;
+  width: 100%;
+  background-size: cover;
+  background-position: 50% 50% !important;
+}
+
+
+@media (max-width: 768px) {
+  .img-container {
+    height: 200px;
+  }
 }
