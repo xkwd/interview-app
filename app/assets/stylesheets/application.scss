@@ -13,19 +13,23 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap";
+@import "bootstrap";
 
 /* Custom */
 
+small.section-description {
+  display: none;
+}
 
-small.section-description { display: none; }
 .dropdown-menu a {
     color: #212529 !important;
 }
+
 .navbar-brand small {
   display: block;
   font-size: 12px;
 }
+
 span.instructions {
   color: #008ace;
   text-decoration: none;
@@ -40,9 +44,30 @@ span.instructions {
   background-position: 50% 50% !important;
 }
 
+.section-img {
+  width: 400px;
+  margin-left: -180px;
+  margin-right: 20px;
+}
+
+.section {
+  margin-bottom: 100px;
+}
+
+.section-text {
+  padding-top: 36px;
+}
 
 @media (max-width: 768px) {
   .img-container {
     height: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .section-img {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 25px;
   }
 }

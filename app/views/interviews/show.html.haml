@@ -1,6 +1,18 @@
-%h1= @interview.title
-%h2= @interview.country.name
-%p= @interview.description
-- @interview.answers.each do |answer|
-  %h3= answer.section.name
-  %p=  answer.content
+.container-fluid.px-0
+  .img-container{style: "background-image: url('http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440');"}
+  .container
+    .row
+      .col-lg-7.offset-lg-2
+        .card
+          .card-body
+            %h3.text-justify= @interview.title
+            %p= @interview.description
+            %h2
+              %span.badge.badge-warning= @interview.country.name
+            - @interview.answers.each do |answer|
+              .section
+                %div.float-left
+                  %h3= answer.section.name
+                  = image_tag 'http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440', class: "section-img"
+                %div
+                  %p.section-text.text-justify=  answer.content
