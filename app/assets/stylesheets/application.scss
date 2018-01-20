@@ -58,6 +58,15 @@ span.instructions {
   padding-top: 36px;
 }
 
+.alert-top {
+  position: absolute;
+  top: 20px;
+  margin: 0 auto;
+  width: 400px;
+  left: 0;
+  right: 0;
+}
+
 @media (max-width: 768px) {
   .img-container {
     height: 200px;
