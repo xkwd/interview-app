@@ -1,0 +1,4 @@
+= link_to interview_path(interview) do
+  .img-container{style: "background-image: url('http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440');"}
+  %h3= truncate(interview.title, length: 60)
+%p=  interview.description

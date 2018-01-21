@@ -1,3 +1,16 @@
-- @interviews.each do |interview|
-  %h3= link_to truncate(interview.title, length: 60), interview_path(interview)
-  = link_to "Edit Interview", edit_interview_path(interview)
+.container.mt-4
+  .row
+    .col-md-8.offset-md-2
+      %table.table
+        %tbody
+          - @interviews.each do |interview|
+            %tr
+              %td
+                %b= link_to truncate(interview.title, length: 60), interview_path(interview)
+              %td
+                = link_to "edit", edit_interview_path(interview)
+              %td.text-right
+                - if interview.published?
+                  %span.badge.badge-success published
+                - else
+                  %span.badge.badge-secondary pending

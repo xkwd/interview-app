@@ -21,9 +21,9 @@
 
 document.addEventListener("turbolinks:load", function() {
   $(function() {
-    $('a.show-description').click(function(event){
+    $('span.instructions').click(function(event){
       event.preventDefault();
-      $(this).next('p.section-description').toggle();
+      $(this).next('small.section-description').toggle();
     });
   });
-})
+});

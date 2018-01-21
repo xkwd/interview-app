@@ -1,2 +1,11 @@
-- @interviews.each do |interview|
-  %h3= link_to truncate(interview.title, length: 60), interview_path(interview)
+.container-fluid.px-0
+  .row.no-gutters
+    .col-md-7
+      = render partial: "interviews/interview", object: @interviews.first
+    .col-md-5.d-md-block.d-sm-none.d-none
+      = render partial: "interviews/interview", object: @interviews.second
+.container.px-0
+  .row.no-gutters
+    .col-lg-8.offset-lg-2
+      - @interviews.drop(2).each do |interview|
+        = render partial: "interviews/interview", object: interview

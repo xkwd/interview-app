@@ -1,10 +1,23 @@
-= link_to "Main Page", root_path
-= link_to "All Interviews", interviews_path
-- if user_signed_in?
-  = link_to current_user.email, edit_user_registration_path
-  = link_to "Add Interview", new_interview_path
-  = link_to "My Interviews", my_interviews_path
-  = link_to "Logout", destroy_user_session_path, method: :delete
-- else
-  = link_to "Sign Up", new_user_registration_path
-  = link_to "Login", new_user_session_path
+%nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
+  %div.container
+    %nav.navbar.navbar-light.bg-faded
+      = link_to root_path, class: "navbar-brand" do
+        Interviews
+        %small Read all interviews
+    %button.navbar-toggler{"aria-controls" => "mainNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#mainNav", "data-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    %div#mainNav.collapse.navbar-collapse
+      %div.navbar-nav.ml-auto
+        - if user_signed_in?
+          = link_to "Add Interview", new_interview_path, type: "button", class: "nav-item btn btn-outline-warning"
+          .nav-item.dropdown
+            %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Your Account
+            .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+              = link_to "My Interviews", my_interviews_path, class: "dropdown-item nav-item nav-link"
+              = link_to "Edit Account", edit_user_registration_path, class: "dropdown-item nav-item nav-link"
+              .dropdown-divider
+              = link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item nav-item nav-link"
+        - else
+          = link_to "Sign Up", new_user_registration_path, class: "nav-item nav-link"
+          = link_to "Login", new_user_session_path, class: "nav-item nav-link"
