@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :interviews, only: [:index, :show, :new, :create, :edit, :update]
+  resources :interviews, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :comments
+  end
   devise_for :users
   get 'my_interviews', to: 'interviews#user_interview'
   root 'interviews#index'

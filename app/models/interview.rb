@@ -21,6 +21,7 @@
 class Interview < ApplicationRecord
   has_many :answers
   has_many :sections, through: :answers
+  has_many :comments, as: :commentable
   belongs_to :user
   belongs_to :country
   validates :title, :description, presence: true
