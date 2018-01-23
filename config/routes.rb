@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :interviews, only: [:index, :show, :new, :create, :edit, :update] do
+  resources :interviews, except: [:destroy] do
     resources :comments
   end
   devise_for :users
