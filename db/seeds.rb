@@ -29,14 +29,14 @@ country_cities_list = {"Australia" => ["Melbourne"],
                        "Switzerland" => ["Zurich", "Geneva"],
                        "United States" => ["New York", "Los Angeles"]}
 Country.delete_all
-country_cities_list.keys.each do |country|
+country_cities_list.each_key do |country|
   Country.create!(
     name: country
   )
 end
 
 City.delete_all
-country_cities_list.each do |k,v|
+country_cities_list.each do |k, v|
   v.each do |city|
     City.create!(
       name: city,
@@ -49,56 +49,87 @@ Section.delete_all
 5.times do
   Section.create!(
     name: Faker::Job.field,
-    description: Faker::Lorem.paragraphs.join()
+    description: Faker::Lorem.paragraphs.join
   )
 end
-
-
 
 User.delete_all
 5.times do
   User.create!(
     email: Faker::Internet.email,
+    name: Faker::Name.name,
     password: "T3RyWrKcD9K"
   )
 end
 
 Interview.delete_all
-(1..5).each do |i|
+User.ids.each do |id|
   Interview.create!(
     title: Faker::Dune.saying,
-    description: Faker::Movie.quote,
-    user_id: User.ids[i-1],
+    description: Faker::Lorem.paragraphs(rand(2...3)).join,
+    user_id: id,
     country_id: Country.ids.sample,
     published: true
   )
 end
 
 Answer.delete_all
-(1..5).each do |i|
+Section.ids.each do |id|
   Answer.create!(
-    content: Faker::Lorem.paragraphs.join(),
+    content: Faker::Lorem.paragraphs(rand(10...25)).join,
     interview_id: Interview.ids[0],
-    section_id: Section.ids[i-1]
+    section_id: id
   )
   Answer.create!(
-    content: Faker::Lorem.paragraphs.join(),
+    content: Faker::Lorem.paragraphs(rand(10...25)).join,
     interview_id: Interview.ids[1],
-    section_id: Section.ids[i-1]
+    section_id: id
   )
   Answer.create!(
-    content: Faker::Lorem.paragraphs.join(),
+    content: Faker::Lorem.paragraphs(rand(10...25)).join,
     interview_id: Interview.ids[2],
-    section_id: Section.ids[i-1]
+    section_id: id
   )
   Answer.create!(
-    content: Faker::Lorem.paragraphs.join(),
+    content: Faker::Lorem.paragraphs(rand(10...25)).join,
     interview_id: Interview.ids[3],
-    section_id: Section.ids[i-1]
+    section_id: id
   )
   Answer.create!(
-    content: Faker::Lorem.paragraphs.join(),
+    content: Faker::Lorem.paragraphs(rand(10...25)).join,
     interview_id: Interview.ids[4],
-    section_id: Section.ids[i-1]
+    section_id: id
+  )
+end
+
+Comment.delete_all
+Interview.all.each do |interview|
+  interview_comment1 = interview.comments.create!(
+    body: Faker::Lorem.paragraphs(rand(1...3)).join,
+    commenter_name: Faker::Name.name,
+    commenter_email: Faker::Internet.email
+  )
+  nested_comment1 = interview_comment1.comments.create!(
+    body: Faker::Lorem.paragraphs(rand(1...7)).join,
+    commenter_name: Faker::Name.name,
+    commenter_email: Faker::Internet.email
+  )
+  nested_comment1.comments.create!(
+    body: Faker::Lorem.paragraphs(rand(1...5)).join,
+    commenter_name: Faker::Name.name,
+    commenter_email: Faker::Internet.email
+  )
+  interview.comments.create!(
+    body: Faker::Lorem.paragraphs(rand(1...7)).join,
+    user_id: User.ids.sample
+  )
+  interview_comment2 = interview.comments.create!(
+    body: Faker::Lorem.paragraphs(rand(1...8)).join,
+    commenter_name: Faker::Name.name,
+    commenter_email: Faker::Internet.email
+  )
+  interview_comment2.comments.create!(
+    body: Faker::Lorem.paragraphs(rand(1...2)).join,
+    user_id: User.ids.sample
   )
 end
