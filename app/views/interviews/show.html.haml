@@ -17,3 +17,4 @@
                 %div
                   %p.section-text.text-justify=  answer.content
         = render partial: "comments/comments", locals: { commentable: @interview }
+        = render partial: "comments/form", locals: { commentable: @interview }
