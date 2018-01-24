@@ -9,3 +9,4 @@
     %p= comment.body
     - comment.comments.each do |nested_comment|
       = render partial: "comments/comment", object: nested_comment
+    %p.card-text.text-right= link_to "Reply", "#", id: comment.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{comment.id}, 'Comment')", class: "comment-reply-link"

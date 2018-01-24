@@ -27,3 +27,9 @@ document.addEventListener("turbolinks:load", function() {
     });
   });
 });
+
+function replyToCommentable(commentable_id, commentable_type) {
+  $("#comment_commentable_type").val("" + commentable_type);
+  $("#comment_commentable_id").val(commentable_id);
+  $(this).after($("#comment-reply-form"));
+}
