@@ -19,11 +19,11 @@
 
 FactoryBot.define do
   factory :comment do
-    body "MyText"
-    commentable_type "MyString"
-    commentable_id 1
-    user nil
-    commenter_name "MyString"
-    commenter_email "MyString"
+    body { Faker::Lorem.paragraphs(rand(1...3)).join }
+    commenter_name { Faker::Name.name }
+    commenter_email { Faker::Internet.email }
+
+    user
+    association :commentable, factory: :interview
   end
 end
