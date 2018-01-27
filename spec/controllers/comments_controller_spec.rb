@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
   let(:interview) { FactoryBot.create(:interview) }
-  let(:comment) { FactoryBot.create(:comment) }
+  let(:comment) { FactoryBot.create(:comment, commentable: interview) }
   let(:invalid_comment) { FactoryBot.build(:comment, commenter_name: nil, user_id: nil) }
 
   context "when params are valid" do
