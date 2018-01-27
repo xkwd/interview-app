@@ -1,17 +1,18 @@
 class CommentsController < ApplicationController
-  before_action :fetch_commentable
 
   def new
     @comment = Comment.new
   end
 
   def create
-    @comment = @commentable.comments.new(comment_params)
+    result = CommentServices::CreateComment.new(comment_params).call
 
-    if @comment.save
-      redirect_back fallback_location: @commentable, notice: "Your comment was posted"
+    if result
+      redirect_to interview_path(id: params[:interview_id]),
+        notice: "Your comment was posted"
     else
-      redirect_back fallback_location: @commentable, notice: "Something went wrong with your comment"
+      redirect_to interview_path(id: params[:interview_id]),
+        notice: "Something went wrong with your comment"
     end
   end
 
@@ -20,9 +21,5 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:commentable_type, :commentable_id, :body,
                                       :commenter_name, :commenter_email, :user_id)
-    end
-
-    def fetch_commentable
-      @commentable = comment_params[:commentable_type].classify.constantize.find(comment_params[:commentable_id])
     end
 end
