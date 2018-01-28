@@ -1,6 +1,6 @@
 #comment-reply-form.card.mt-2
   .card-body
-    = form_for [commentable, Comment.new] do |f|
+    = form_for [commentable, Comment.new], remote: true do |f|
       .card
         .card-header
           = f.hidden_field :commentable_id, value: commentable.id
@@ -14,5 +14,5 @@
               = f.email_field :commenter_email, class: "form-control", placeholder: "Your email", required: true
         .card-body
           .form-group
-            = f.text_area :body, class: "form-control", placeholder: "Add a comment"
+            = f.text_area :body, class: "form-control", placeholder: "Add a comment", required: true
           = f.submit class: "btn btn-primary"

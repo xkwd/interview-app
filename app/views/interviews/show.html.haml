@@ -16,5 +16,7 @@
                   = image_tag 'http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440', class: "section-img"
                 %div
                   %p.section-text.text-justify=  answer.content
-        = render partial: "comments/comments", locals: { commentable: @interview }
-        = render partial: "comments/form", locals: { commentable: @interview }
+        .comments
+          = render partial: "comments/comments", locals: { commentable: @interview }
+        .comment-form
+          = render partial: "comments/form", locals: { commentable: @interview }

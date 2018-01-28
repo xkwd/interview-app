@@ -8,11 +8,14 @@ class CommentsController < ApplicationController
     result = CommentServices::CreateComment.new(comment_params).call
 
     if result
-      redirect_to interview_path(id: params[:interview_id]),
-        notice: "Your comment was posted"
+      flash[:notice] = "Your comment was posted"
+      @interview = Interview.find(params[:interview_id])
     else
-      redirect_to interview_path(id: params[:interview_id]),
-        notice: "Something went wrong with your comment"
+      flash[:alert] = "Something went wrong with your comment"
+    end
+
+    respond_to do |format|
+      format.js
     end
   end
 

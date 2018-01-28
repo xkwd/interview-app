@@ -1,0 +1,6 @@
+.container
+  - flash.each do |msg_type, msg|
+    %div{class: "alert alert-secondary alert-dismissible fade show alert-top"}
+      = msg
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", type: "button"}
+        %span{"aria-hidden" => "true"} &times;

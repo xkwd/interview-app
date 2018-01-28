@@ -1,6 +1,5 @@
-.comments
-  %h4 Comments:
-  = link_to "Leave a comment", "#", id: commentable.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{commentable.id}, '#{commentable.class}')", class: "comment-reply-link"
-  - commentable.comments.each do |comment|
-    = render partial: "comments/comment", object: comment
-  = link_to "Leave a comment", "#", id: commentable.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{commentable.id}, '#{commentable.class}')", class: "comment-reply-link"
+%h4 Comments:
+= link_to "Leave a comment", "#", id: commentable.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{commentable.id}, '#{commentable.class}')", class: "comment-reply-link"
+- commentable.comments.each do |comment|
+  = render partial: "comments/comment", object: comment
+= link_to "Leave a comment", "#", id: commentable.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{commentable.id}, '#{commentable.class}')", class: "comment-reply-link"
