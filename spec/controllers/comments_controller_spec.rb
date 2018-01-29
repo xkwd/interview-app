@@ -8,20 +8,20 @@ RSpec.describe CommentsController, type: :controller do
   context "when params are valid" do
     it "creates a new comment" do
       params = { interview_id: interview.id, comment: comment.attributes }
-      expect { post :create, params: params }.to change(Comment, :count).by(1)
+      expect { post :create, xhr: true, params: params, format: :js }.to change(Comment, :count).by(1)
     end
 
-    it "redirects to the interview page upon save" do
+    it "renders 200" do
       params = { interview_id: interview.id, comment: comment.attributes }
-      post :create, params: params
-      expect(response).to redirect_to Interview.find(comment.commentable_id)
+      post :create, xhr: true, params: params, format: :js
+      expect(response.status).to be(200)
     end
   end
 
   context "when params are invalid" do
     it "does not create a new comment" do
       params = { interview_id: interview.id, comment: invalid_comment.attributes }
-      expect { post :create, params: params }.not_to change(Comment, :count)
+      expect { post :create, xhr: true, params: params, format: :js }.not_to change(Comment, :count)
     end
   end
 
