@@ -15,6 +15,7 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  name                   :string           default(""), not null
 #
 # Indexes
 #
@@ -24,6 +25,8 @@
 
 class User < ApplicationRecord
   has_many :interviews
+  has_many :comments
+  validates :name, :email, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

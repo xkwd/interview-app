@@ -6,7 +6,7 @@ class InterviewsController < ApplicationController
   end
 
   def show
-    @interview = Interview.find(params[:id])
+    @interview = Interview.published.find(params[:id])
   end
 
   def new

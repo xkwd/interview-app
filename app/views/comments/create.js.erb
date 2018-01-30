@@ -1,0 +1,6 @@
+$(".alerts").html("<%= j render partial: 'layouts/flash' %>");
+if ("<%= !@interview.blank? %>") {
+  $(".comments").html("<%= j render partial: 'comments/comments', locals: { commentable: @interview } %>");
+  $(".comment-form").html("<%= j render partial: 'comments/form', locals: { commentable: @interview } %>");
+  document.getElementById("new_comment").reset();
+}
