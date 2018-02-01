@@ -1,30 +1,172 @@
 require 'rails_helper'
 
 RSpec.describe InterviewsController, type: :controller do
+  let!(:user)  { create(:user) }
+  let!(:user1) { create(:user) }
+  let!(:user2) { create(:user) }
+  let(:interview) { build(:interview) }
+  let(:invalid_interview) { build(:interview, title: nil) }
+  let!(:interview1) { create(:interview, user: user1) }
+  let!(:interview2) { create(:interview, user: user1) }
+  let!(:interview3) { create(:interview, user: user1) }
+  let!(:interview4) { create(:interview, user: user2) }
+  let!(:interview5) { create(:interview, user: user2, published: false) }
 
-  describe InterviewsController do
-    it { should route(:get, '/interviews').to(action: :index) }
-    it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
-    it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
-    it { should route(:get, '/my_interviews').to(action: :user_interview) }
-    it { should use_before_action(:authenticate_user!) }
+  it { should route(:get, '/interviews').to(action: :index) }
+  it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
+  it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
+  it { should route(:get, '/my_interviews').to(action: :user_interview) }
+  it { should use_before_action(:authenticate_user!) }
+
+  describe "GET #index" do
+    it "populates an array of all published interviews" do
+      get :index
+      expect(assigns(:interviews)).to match_array([interview1, interview2, interview3, interview4])
+    end
+
+    it "does not include unpublished interviews" do
+      get :index
+      expect(assigns(:interviews)).not_to eq interview5
+    end
+
+    it "renders the :index template" do
+      get 'index'
+      expect(response).to render_template :index
+    end
   end
 
-  describe "logged user" do
-    before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      user = FactoryBot.create(:user)
+  describe "GET #show" do
+    it "assigns the requested interview to @interview" do
+      get :show, params: { id: interview1 }
+      expect(assigns(:interview)).to eq interview1
+    end
+
+    it "renders the :show template" do
+      get :show, params: { id: interview1 }
+      expect(response).to render_template :show
+    end
+  end
+
+  describe "GET #new" do
+    before do
       sign_in user
     end
 
-    it "should have a current_user" do
-      expect(subject.current_user).to_not eq(nil)
+    it "assigns a new Interview to @interview" do
+      get :new
+      expect(assigns(:interview)).to be_a_new(Interview)
     end
 
-    it "should get index" do
-      get 'index'
-      expect(response).to be_success
+    it "renders the :new template" do
+      get :new
+      expect(response).to render_template :new
     end
   end
 
+  describe "POST #create" do
+    before do
+      sign_in user
+    end
+
+    context "with valid attributes" do
+      it "saves the new interview in the database" do
+        expect{ post :create, params: { interview: interview.attributes } }.to change(Interview, :count).by(1)
+      end
+
+      it "redirects to interviews#show" do
+        post :create, params: { interview: interview.attributes }
+        expect(response).to redirect_to interview_path(Interview.last)
+      end
+    end
+
+    context "with invalid attributes" do
+      it "does not save the new interview in the database" do
+        expect{ post :create, params: { interview: invalid_interview.attributes } }.not_to change(Interview, :count)
+      end
+
+      it "re-renders the :new template" do
+        post :create, params: { interview: invalid_interview.attributes }
+        expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe "GET #edit" do
+    before do
+      sign_in user1
+    end
+
+    it "assigns the requested interview to @interview" do
+      get :edit, params: { id: interview1 }
+      expect(assigns(:interview)).to eq interview1
+    end
+
+    it "renders the :edit template" do
+      get :edit, params: { id: interview1 }
+      expect(response).to render_template :edit
+    end
+  end
+
+  describe "PATCH #update" do
+    before do
+      @interview = create(:interview, title: "Incorrect title")
+    end
+
+    context "valid attributes" do
+      it "locates the requested @interview" do
+        patch :update, params: { id: @interview, interview: attributes_for(:interview) }
+        expect(assigns(:contact)).to eq(@contact)
+      end
+
+      it "changes @interview's attributes" do
+        patch :update, params: { id: @interview, interview: attributes_for(:interview, title: "Correct title") }
+        @interview.reload
+        expect(@interview.title).to eq("Correct title")
+      end
+
+      it "redirects to the updated interview" do
+        patch :update, params: { id: @interview, interview: attributes_for(:interview) }
+        expect(response).to redirect_to @interview
+      end
+    end
+
+    context "invalid attributes" do
+      it "does not change the interview attributes" do
+        patch :update, params: { id: @interview, interview: attributes_for(:interview, title: nil, description: "") }
+        @interview.reload
+        expect(@interview.title).not_to eq(nil)
+        expect(@interview.description).not_to eq("")
+      end
+
+      it "re-renders the :edit template" do
+        patch :update, params: { id: @interview, interview: attributes_for(:interview, title: nil, description: "") }
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
+  describe "GET user_interview" do
+    context "user not signed in" do
+      it "redirects not logged user to sign_in" do
+        get :user_interview
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "user signed in" do
+      before do
+        sign_in user1
+      end
+
+      it "shows current user interviews" do
+        get :user_interview
+        expect(assigns(:interviews)).to include(interview1, interview2, interview3)
+      end
+
+      it "does not show interviews of other users" do
+        get :user_interview
+        expect(assigns(:interviews)).not_to include(interview4, interview5)
+      end
+    end
+  end
 end
