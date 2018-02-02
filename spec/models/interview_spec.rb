@@ -11,10 +11,12 @@
 #  user_id      :integer
 #  country_id   :integer
 #  published    :boolean          default(FALSE)
+#  slug         :string
 #
 # Indexes
 #
 #  index_interviews_on_country_id  (country_id)
+#  index_interviews_on_slug        (slug) UNIQUE
 #  index_interviews_on_user_id     (user_id)
 #
 
