@@ -8,6 +8,7 @@ end
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.3'
+gem 'friendly_id', '~> 5.2', '>= 5.2.3'
 gem 'haml', '~> 5.0', '>= 5.0.4'
 gem 'haml-rails', '~> 1.0'
 gem 'jbuilder', '~> 2.5'
