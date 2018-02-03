@@ -17,6 +17,11 @@
             .card-body
               %h3.card-title= f.label :description
               %p= f.text_area :description, class: "form-control"
+        .form-group
+          .card.bg-light
+            .card-body
+              %h3.card-title= f.label :cover
+              %p= f.file_field :cover, class: "form-control"
         .form-row
           .form-group.col-md-4
             .card.bg-light

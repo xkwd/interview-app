@@ -17,6 +17,11 @@
             .card-body
               %h3.card-title= f.label :description
               %p= f.text_area :description, placeholder: "Briefly describe your story. Your text will be visible on index page with all interviews", class: "form-control"
+        .form-group
+          .card.bg-light
+            .card-body
+              %h3.card-title= f.label :cover
+              %p= f.file_field :cover, class: "form-control"
         .form-row
           .form-group.col-md-4
             .card.bg-light

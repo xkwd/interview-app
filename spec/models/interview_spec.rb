@@ -12,6 +12,7 @@
 #  country_id   :integer
 #  published    :boolean          default(FALSE)
 #  slug         :string
+#  cover        :string
 #
 # Indexes
 #

@@ -12,6 +12,7 @@
 #  country_id   :integer
 #  published    :boolean          default(FALSE)
 #  slug         :string
+#  cover        :string
 #
 # Indexes
 #
@@ -31,6 +32,8 @@ class Interview < ApplicationRecord
   accepts_nested_attributes_for :answers, :sections
 
   friendly_id :title, use: [:slugged, :finders]
+
+  mount_uploader :cover, CoverUploader
 
   scope :published, -> { where(published: true) }
 end
