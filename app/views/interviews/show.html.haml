@@ -13,7 +13,7 @@
               .section
                 %div.float-left
                   %h3= answer.section.name
-                  = image_tag 'http://images.pexels.com/photos/39152/pexels-photo-39152.jpeg?&fit=crop&w=900&h=440', class: "section-img"
+                  = image_tag "#{answer.image_url(:thumb)}", class: "section-img"
                 %div
                   %p.section-text.text-justify=  answer.content
         .comments
