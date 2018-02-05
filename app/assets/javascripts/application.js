@@ -33,3 +33,18 @@ function replyToCommentable(commentable_id, commentable_type) {
   $("#comment_commentable_id").val(commentable_id);
   $(this).after($("#comment-reply-form"));
 }
+
+jQuery(function() {
+  if ($('.pagination').length) {
+    $(window).scroll(function() {
+      var url;
+      url = $('.pagination .next a').attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50)
+       {
+         $('.pagination').html("<div class='mx-auto'><img src='/preloader.gif'></div>");
+         return $.getScript(url);
+       }
+    });
+    return $(window).scroll();
+  }
+});
