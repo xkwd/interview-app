@@ -2,7 +2,8 @@ class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview]
 
   def index
-    @interviews = Interview.published.order("created_at DESC")
+    @top_interviews = Interview.published.last(2)
+    @interviews = Interview.published.order("created_at DESC").page(params[:page]).per(2).padding(2)
   end
 
   def show
