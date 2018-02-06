@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204155145) do
+ActiveRecord::Schema.define(version: 20180206223023) do
 
   create_table "answers", force: :cascade do |t|
     t.text "content", null: false
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20180204155145) do
     t.boolean "published", default: false
     t.string "slug"
     t.string "cover"
+    t.string "meta_title"
+    t.string "meta_description"
     t.index ["country_id"], name: "index_interviews_on_country_id"
     t.index ["slug"], name: "index_interviews_on_slug", unique: true
     t.index ["user_id"], name: "index_interviews_on_user_id"
