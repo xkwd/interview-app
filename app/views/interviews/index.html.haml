@@ -7,6 +7,10 @@
 .container.px-0
   .row.no-gutters
     .col-lg-8.offset-lg-2
+      = search_form_for @q, html: { class: "form-inline" } do |f|
+        .form-group.mb-2.mt
+          = f.search_field :title_or_description_cont, placeholder: "Type in...", class: "form-control"
+          = f.submit "Search", type: "submit", class: "btn btn-info btn-inline"
       #interviews
         = render partial: "interviews/interviews", object: @interviews
       = paginate @interviews

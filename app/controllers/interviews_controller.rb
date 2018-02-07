@@ -3,7 +3,12 @@ class InterviewsController < ApplicationController
 
   def index
     @top_interviews = Interview.published.last(2)
-    @interviews = Interview.published.order("created_at DESC").page(params[:page]).per(2).padding(2)
+    @q = Interview.published.order("created_at DESC").search(params[:q])
+    if params[:q].blank? || params[:q].values == [""]
+      @interviews = @q.result(distinct: true).page(params[:page]).per(2).padding(2)
+    else
+      @interviews = @q.result(distinct: true).page(params[:page]).per(2)
+    end
 
     respond_to do |format|
       format.html
