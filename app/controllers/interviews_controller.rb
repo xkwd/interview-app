@@ -64,6 +64,11 @@ class InterviewsController < ApplicationController
     @interviews = current_user.interviews.order("created_at DESC")
   end
 
+  def search
+    index
+    render :index
+  end
+
   private
 
   def interview_params
