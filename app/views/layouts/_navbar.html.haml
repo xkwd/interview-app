@@ -8,6 +8,9 @@
       %span.navbar-toggler-icon
     %div#mainNav.collapse.navbar-collapse
       %div.navbar-nav.ml-auto
+        = search_form_for @search, html: { class: "form-inline mx-2" } do |f|
+          = f.search_field :title_or_description_cont, placeholder: "Type in...", class: "form-control"
+          = f.submit "Search", type: "submit", class: "btn btn-info btn-inline mx-2"
         - if user_signed_in?
           = link_to "Add Interview", new_interview_path, type: "button", class: "nav-item btn btn-outline-warning"
           .nav-item.dropdown

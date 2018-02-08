@@ -2,12 +2,11 @@ class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview]
 
   def index
-    @top_interviews = Interview.published.last(2)
-    @q = Interview.published.order("created_at DESC").search(params[:q])
-    if params[:q].blank? || params[:q].values == [""]
-      @interviews = @q.result(distinct: true).page(params[:page]).per(2).padding(2)
-    else
-      @interviews = @q.result(distinct: true).page(params[:page]).per(2)
+    @interviews = @search.result(distinct: true).page(params[:page]).per(2)
+
+    if params[:q].blank?
+      @top_interviews = Interview.published.last(2)
+      @interviews = @interviews.padding(2)
     end
 
     respond_to do |format|
@@ -71,5 +70,4 @@ class InterviewsController < ApplicationController
     params.require(:interview).permit(:title, :description, :country_id, :cover, answers_attributes:
                                      [:id, :content, :section_id, :image])
   end
-
 end

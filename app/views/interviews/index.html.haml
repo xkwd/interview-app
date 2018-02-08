@@ -1,16 +1,8 @@
-.container-fluid.px-0
-  .row.no-gutters
-    .col-md-7
-      = render partial: "interviews/interview", object: @top_interviews.second
-    .col-md-5.d-md-block.d-sm-none.d-none
-      = render partial: "interviews/interview", object: @top_interviews.first
+- if @top_interviews.present?
+  = render partial: "interviews/top_interviews", object: @top_interviews 
 .container.px-0
   .row.no-gutters
     .col-lg-8.offset-lg-2
-      = search_form_for @q, html: { class: "form-inline" } do |f|
-        .form-group.mb-2.mt
-          = f.search_field :title_or_description_cont, placeholder: "Type in...", class: "form-control"
-          = f.submit "Search", type: "submit", class: "btn btn-info btn-inline"
       #interviews
         = render partial: "interviews/interviews", object: @interviews
       = paginate @interviews
