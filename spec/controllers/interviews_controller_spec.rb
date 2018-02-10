@@ -21,7 +21,7 @@ RSpec.describe InterviewsController, type: :controller do
   describe "GET #index" do
     it "populates an array of all published interviews" do
       get :index
-      expect(assigns(:interviews)).to match_array([interview1, interview2, interview3, interview4])
+      expect(assigns(:interviews)).to match_array([interview1, interview2])
     end
 
     it "does not include unpublished interviews" do
@@ -75,7 +75,7 @@ RSpec.describe InterviewsController, type: :controller do
 
       it "redirects to interviews#show" do
         post :create, params: { interview: interview.attributes }
-        expect(response).to redirect_to interview_path(Interview.last)
+        expect(response).to redirect_to my_interviews_path
       end
     end
 

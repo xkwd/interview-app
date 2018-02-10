@@ -2,17 +2,19 @@
 #
 # Table name: interviews
 #
-#  id           :integer          not null, primary key
-#  title        :string
-#  published_at :datetime
-#  description  :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :integer
-#  country_id   :integer
-#  published    :boolean          default(FALSE)
-#  slug         :string
-#  cover        :string
+#  id               :integer          not null, primary key
+#  title            :string
+#  published_at     :datetime
+#  description      :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  user_id          :integer
+#  country_id       :integer
+#  published        :boolean          default(FALSE)
+#  slug             :string
+#  cover            :string
+#  meta_title       :string
+#  meta_description :string
 #
 # Indexes
 #
