@@ -6,9 +6,9 @@ RSpec.describe InterviewsController, type: :controller do
   let!(:user2) { create(:user) }
   let(:interview) { build(:interview) }
   let(:invalid_interview) { build(:interview, title: nil) }
-  let!(:interview1) { create(:interview, user: user1) }
-  let!(:interview2) { create(:interview, user: user1) }
-  let!(:interview3) { create(:interview, user: user1) }
+  let!(:interview1) { create(:interview, user: user1, title: "Green yellow blue") }
+  let!(:interview2) { create(:interview, user: user1, title: "Green blue") }
+  let!(:interview3) { create(:interview, user: user1, title: "Yellow blue") }
   let!(:interview4) { create(:interview, user: user2) }
   let!(:interview5) { create(:interview, user: user2, published: false) }
 
@@ -24,7 +24,7 @@ RSpec.describe InterviewsController, type: :controller do
       expect(assigns(:interviews)).to match_array([interview1, interview2])
     end
 
-    it "does not include unpublished interviews" do
+    it "does NOT include unpublished interviews" do
       get :index
       expect(assigns(:interviews)).not_to eq interview5
     end
@@ -80,7 +80,7 @@ RSpec.describe InterviewsController, type: :controller do
     end
 
     context "with invalid attributes" do
-      it "does not save the new interview in the database" do
+      it "does NOT save the new interview in the database" do
         expect{ post :create, params: { interview: invalid_interview.attributes } }.not_to change(Interview, :count)
       end
 
@@ -131,7 +131,7 @@ RSpec.describe InterviewsController, type: :controller do
     end
 
     context "invalid attributes" do
-      it "does not change the interview attributes" do
+      it "does NOT change the interview attributes" do
         patch :update, params: { id: @interview, interview: attributes_for(:interview, title: nil, description: "") }
         @interview.reload
         expect(@interview.title).not_to eq(nil)
@@ -163,10 +163,22 @@ RSpec.describe InterviewsController, type: :controller do
         expect(assigns(:interviews)).to include(interview1, interview2, interview3)
       end
 
-      it "does not show interviews of other users" do
+      it "does NOT show interviews of other users" do
         get :user_interview
         expect(assigns(:interviews)).not_to include(interview4, interview5)
       end
+    end
+  end
+
+  describe "Search interviews" do
+    it "gets all interviews matching the key words" do
+      get :search, params: { q: { title_or_description_or_answers_content_cont: 'yellow' } }
+      expect(assigns(:interviews)).to include(interview1, interview3)
+    end
+
+    it "does NOT show interviews not matching the key words" do
+      get :search, params: { q: { title_or_description_or_answers_content_cont: 'yellow' } }
+      expect(assigns(:interviews)).not_to include(interview2, interview4)
     end
   end
 end
