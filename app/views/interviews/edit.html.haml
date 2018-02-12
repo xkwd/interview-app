@@ -50,7 +50,7 @@
                   .form-group.col-md-4
                     .form-check.form-inline.form-control
                       = a.check_box :remove_image, class: "form-check-input"
-                      = a.label :remove_image, "Remove image above", class: "form-check-label"
+                      = a.label :remove_image, t(".remove_image"), class: "form-check-label"
         .row
           .col-sm-6.offset-sm-3
-            = f.submit "Create", type: "submit", class: "btn btn-info btn-block"
+            = f.submit t(".update_interview"), type: "submit", class: "btn btn-info btn-block"

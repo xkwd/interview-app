@@ -30,4 +30,39 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  motto: Read all interviews
+  search: Search
+  search_placeholder: type here...
+  sign_up: Sign Up
+  login: Login
+  logout: Logout
+  add_interview: Add Interview
+  your_account: Your Account
+  my_interviews: My Interviews
+  edit_account: Edit Account
+  about: About
+  contact: Contact
+
+  interviews:
+    new:
+      title_placeholder: Type in your title
+      description_placeholder: Briefly describe your story. Your text will be visible on index page with all interviews
+      answer_placeholder: Share your opinion and thoughts on the topic. No size limits
+      create: Create
+    edit:
+      update_interview: Save to update
+      remove_image: Remove image above
+    user_interview:
+      edit: edit
+      published: published
+      pending: pending
+
+  comments:
+    create_comment: Create Comment
+
+  activerecord:
+    attributes:
+      interview:
+        title: Title
+        description: Description
+        cover: Cover image

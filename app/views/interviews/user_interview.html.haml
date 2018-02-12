@@ -8,9 +8,9 @@
               %td
                 %b= link_to truncate(interview.title, length: 60), interview_path(interview)
               %td
-                = link_to "edit", edit_interview_path(interview)
+                = link_to t(".edit"), edit_interview_path(interview)
               %td.text-right
                 - if interview.published?
-                  %span.badge.badge-success published
+                  %span.badge.badge-success= t(".published")
                 - else
-                  %span.badge.badge-secondary pending
+                  %span.badge.badge-secondary= t(".pending")
