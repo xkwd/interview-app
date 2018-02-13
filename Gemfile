@@ -6,19 +6,24 @@ git_source(:github) do |repo_name|
 end
 
 gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'carrierwave', '~> 1.2', '>= 1.2.2'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.3'
+gem 'friendly_id', '~> 5.2', '>= 5.2.3'
 gem 'haml', '~> 5.0', '>= 5.0.4'
 gem 'haml-rails', '~> 1.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'meta-tags', '~> 2.7', '>= 2.7.1'
+gem 'mini_magick', '~> 4.8'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.4'
+gem 'ransack', '~> 1.8', '>= 1.8.7'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-
 
 group :development, :test do
   gem 'binding_of_caller', '~> 0.8.0'

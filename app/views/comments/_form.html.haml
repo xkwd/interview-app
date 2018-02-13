@@ -15,4 +15,4 @@
         .card-body
           .form-group
             = f.text_area :body, class: "form-control", placeholder: "Add a comment", required: true
-          = f.submit class: "btn btn-primary"
+          = f.submit t("comments.create_comment"), class: "btn btn-primary"

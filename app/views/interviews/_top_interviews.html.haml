@@ -1,0 +1,6 @@
+.container-fluid.px-0
+  .row.no-gutters
+    .col-md-7
+      = render partial: "interviews/interview", object: @top_interviews.second
+    .col-md-5.d-md-block.d-sm-none.d-none
+      = render partial: "interviews/interview", object: @top_interviews.first 

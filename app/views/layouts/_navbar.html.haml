@@ -3,21 +3,24 @@
     %nav.navbar.navbar-light.bg-faded
       = link_to root_path, class: "navbar-brand" do
         Interviews
-        %small Read all interviews
+        %small= t(:motto)
     %button.navbar-toggler{"aria-controls" => "mainNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#mainNav", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     %div#mainNav.collapse.navbar-collapse
       %div.navbar-nav.ml-auto
+        = search_form_for @search, url: search_interviews_path, html: { method: :post, class: "form-inline mx-2" } do |f|
+          = f.search_field :title_or_description_or_answers_content_cont, placeholder: t(:search_placeholder), class: "form-control"
+          = f.submit t(:search), type: "submit", class: "btn btn-info btn-inline mx-2"
         - if user_signed_in?
-          = link_to "Add Interview", new_interview_path, type: "button", class: "nav-item btn btn-outline-warning"
+          = link_to t(:add_interview), new_interview_path, type: "button", class: "nav-item btn btn-outline-warning"
           .nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              Your Account
+              = t(:your_account)
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-              = link_to "My Interviews", my_interviews_path, class: "dropdown-item nav-item nav-link"
-              = link_to "Edit Account", edit_user_registration_path, class: "dropdown-item nav-item nav-link"
+              = link_to t(:my_interviews), my_interviews_path, class: "dropdown-item nav-item nav-link"
+              = link_to t(:edit_account), edit_user_registration_path, class: "dropdown-item nav-item nav-link"
               .dropdown-divider
-              = link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item nav-item nav-link"
+              = link_to t(:logout), destroy_user_session_path, method: :delete, class: "dropdown-item nav-item nav-link"
         - else
-          = link_to "Sign Up", new_user_registration_path, class: "nav-item nav-link"
-          = link_to "Login", new_user_session_path, class: "nav-item nav-link"
+          = link_to t(:sign_up), new_user_registration_path, class: "nav-item nav-link"
+          = link_to t(:login), new_user_session_path, class: "nav-item nav-link"

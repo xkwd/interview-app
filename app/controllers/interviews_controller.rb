@@ -2,7 +2,17 @@ class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview]
 
   def index
-    @interviews = Interview.published.order("created_at DESC")
+    @interviews = @search.result(distinct: true).includes(:answers).page(params[:page]).per(2)
+
+    if params[:q].blank?
+      @top_interviews = Interview.published.last(2)
+      @interviews = @interviews.padding(2)
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -23,8 +33,9 @@ class InterviewsController < ApplicationController
   def create
     @interview = current_user.interviews.build(interview_params)
     if @interview.save
-      flash[:success] = 'Whoa, your interview has been created'
-      redirect_to @interview
+      flash[:success] = "Whoa, your interview has been created.
+                         It just needs a review before going public."
+      redirect_to my_interviews_path
     else
       render 'new'
     end
@@ -53,11 +64,15 @@ class InterviewsController < ApplicationController
     @interviews = current_user.interviews.order("created_at DESC")
   end
 
+  def search
+    index
+    render :index
+  end
+
   private
 
   def interview_params
-    params.require(:interview).permit(:title, :description, :country_id, answers_attributes:
-                                     [:id, :content, :section_id])
+    params.require(:interview).permit(:title, :description, :country_id, :cover, answers_attributes:
+                                     [:id, :content, :section_id, :image])
   end
-
 end
