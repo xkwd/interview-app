@@ -42,6 +42,13 @@ span.instructions {
   width: 100%;
   background-size: cover;
   background-position: 50% 50% !important;
+
+  &:hover {
+    filter: contrast(80%);
+  	-webkit-filter: contrast(80%);
+  	-moz-filter: contrast(80%);
+  	-ms-filter: contrast(80%);
+  }
 }
 
 .section-img {
@@ -66,6 +73,53 @@ span.instructions {
   left: 0;
   right: 0;
 }
+
+.interview-thumb {
+  margin-bottom: 3em;
+}
+
+.top-interview-thumb {
+  height: 350px;
+}
+
+.normal-interview-thumb {
+  height: 250px;
+}
+
+.interview-thumb-title {
+  position: relative;
+  display: inline-block;
+  bottom: 4em;
+  background-color: white;
+  margin: 0 7em -4em 2em;
+  padding: 1.5em 1em 1em 1em;
+
+  span {
+    position: absolute;
+    top: 5px;
+    background-color: #ffc107;
+    padding: 0 2px;
+    color: black;
+    font-weight: bold;
+    left: 15px;
+    font-size: 0.7em;
+  }
+}
+
+.interview-thumb-description {
+  margin-left: 2em;
+  margin-top: -2.5em;
+  margin-right: 8em;
+  padding-left: 1.3em;
+  text-align: justify;
+  font-size: 0.9em;
+  line-height: 1.2em;
+
+  p {
+
+  }
+}
+
 
 @media (max-width: 768px) {
   .img-container {
