@@ -43,12 +43,6 @@ span.instructions {
   background-size: cover;
   background-position: 50% 50% !important;
 
-  &:hover {
-    filter: contrast(80%);
-  	-webkit-filter: contrast(80%);
-  	-moz-filter: contrast(80%);
-  	-ms-filter: contrast(80%);
-  }
 }
 
 .section-img {
@@ -59,10 +53,15 @@ span.instructions {
 
 .section {
   margin-bottom: 100px;
+  background-color: #fffff1;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .section-text {
-  padding-top: 36px;
+  padding-top: 31px;
+  padding-bottom: 10px;
+  line-height: 1.4em;
 }
 
 .alert-top {
@@ -76,10 +75,28 @@ span.instructions {
 
 .interview-thumb {
   margin-bottom: 3em;
+
+  &:hover {
+    filter: contrast(80%);
+  	-webkit-filter: contrast(80%);
+  	-moz-filter: contrast(80%);
+  	-ms-filter: contrast(80%);
+  }
 }
 
 .top-interview-thumb {
   height: 350px;
+
+  &:hover {
+    filter: contrast(80%);
+  	-webkit-filter: contrast(80%);
+  	-moz-filter: contrast(80%);
+  	-ms-filter: contrast(80%);
+  }
+}
+
+.top-interview-img {
+  height: 400px;
 }
 
 .normal-interview-thumb {
@@ -120,6 +137,42 @@ span.instructions {
   }
 }
 
+.interview-title {
+  position: absolute;
+  top: -115px;
+  background: white;
+  padding: 2em 1.3em 1em 1.3em;
+  left: 0;
+  min-height: 120px;
+
+  h3 {
+    font-size: 1.5em;
+    font-weight: normal;
+  }
+}
+
+.interview-country {
+  position: absolute;
+  top: -7em;
+  span {
+    padding: 3px;
+    font-size: 1em;
+  }
+}
+
+.interview-description {
+  text-align: justify;
+  margin-top: 1em;
+  margin-bottom: 5em;
+  line-height: 1.4em;
+  padding-right: 1em;
+
+}
+
+h3.section-name {
+  font-size: 1.5em;
+  font-weight: normal;
+}
 
 @media (max-width: 768px) {
   .img-container {

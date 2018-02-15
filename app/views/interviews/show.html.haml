@@ -1,20 +1,21 @@
 - title @interview.meta_title
 - description @interview.meta_description
 .container-fluid.px-0
-  .img-container{style: "background-image: url('#{@interview.cover_url}');"}
+  .img-container.top-interview-img{style: "background-image: url('#{@interview.cover_url}');"}
   .container
     .row
       .col-lg-7.offset-lg-2
         .card
           .card-body
-            %h3.text-justify= @interview.title
-            %p= @interview.description
-            %h2
+            .interview-title
+              %h3.text-justify= @interview.title
+            %p.interview-description= @interview.description
+            .interview-country
               %span.badge.badge-warning= @interview.country.name
             - @interview.answers.each do |answer|
               .section
                 %div.float-left
-                  %h3= answer.section.name
+                  %h3.section-name= answer.section.name.upcase
                   = image_tag "#{answer.image_url(:thumb)}", class: "section-img"
                 %div
                   %p.section-text.text-justify=  answer.content
