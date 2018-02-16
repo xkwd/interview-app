@@ -169,6 +169,49 @@ span.instructions {
 
 }
 
+.comment {
+
+  .right {
+    float: right;
+  }
+
+
+  .reply {
+    padding-top: 5px;
+
+    a {
+      line-height: 1;
+    }
+  }
+
+  .card-header {
+    padding: 0.2rem 1.25rem;
+    background-color: #fffff1;
+  }
+
+  p {
+    text-align: justify;
+    line-height: 1.3;
+    margin-bottom: 0;
+  }
+}
+
+#comment-reply-form {
+
+  .card {
+    border: 1px solid black;
+  }
+
+  .card-header {
+    padding: 0.2rem 1.25rem;
+    background-color: #fffff1;
+  }
+
+  .right {
+    float: right;
+  }
+}
+
 h3.section-name {
   font-size: 1.5em;
   font-weight: normal;

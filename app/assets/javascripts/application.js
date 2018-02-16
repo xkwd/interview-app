@@ -41,10 +41,16 @@ document.addEventListener("turbolinks:load", function() {
       return $(window).scroll();
     }
   });
+
+  $(function() {
+    $(".comment-reply-link.btn.btn-outline-primary.btn-lg").eq(1).hide();
+  });
 });
 
 function replyToCommentable(commentable_id, commentable_type) {
+  $(".comment-reply-link").show()
   $("#comment_commentable_type").val("" + commentable_type);
   $("#comment_commentable_id").val(commentable_id);
+  $(this).hide();
   $(this).after($("#comment-reply-form"));
 }
