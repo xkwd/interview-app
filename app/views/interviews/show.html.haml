@@ -16,7 +16,8 @@
               .section
                 %div.float-left
                   %h3.section-name= answer.section.name.upcase
-                  = image_tag "#{answer.image_url(:thumb)}", class: "section-img"
+                  = link_to "#{answer.image_url}", data: {lightbox: "#{answer.image_identifier}"} do
+                    = image_tag "#{answer.image_url(:thumb)}", class: "section-img"
                 %div
                   %p.section-text.text-justify=  answer.content
         .comments
