@@ -14,6 +14,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require lightbox
 //= require turbolinks
 //= require_tree .
 
@@ -41,10 +42,20 @@ document.addEventListener("turbolinks:load", function() {
       return $(window).scroll();
     }
   });
+
+  $(function() {
+    if ($('.comment').length < 10) {
+      $(".comment-reply-link.btn.btn-outline-primary.btn-lg").hide();
+    } else {
+      $(".comment-reply-link.btn.btn-outline-primary.btn-lg").eq(1).hide();
+    }
+  });
 });
 
 function replyToCommentable(commentable_id, commentable_type) {
+  $(".comment-reply-link").show()
   $("#comment_commentable_type").val("" + commentable_type);
   $("#comment_commentable_id").val(commentable_id);
+  $(this).hide();
   $(this).after($("#comment-reply-form"));
 }

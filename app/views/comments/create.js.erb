@@ -3,4 +3,9 @@ if ("<%= !@interview.blank? %>") {
   $(".comments").html("<%= j render partial: 'comments/comments', locals: { commentable: @interview } %>");
   $(".comment-form").html("<%= j render partial: 'comments/form', locals: { commentable: @interview } %>");
   document.getElementById("new_comment").reset();
+  if ($('.comment').length < 10) {
+    $(".comment-reply-link.btn.btn-outline-primary.btn-lg").hide();
+  } else {
+    $(".comment-reply-link.btn.btn-outline-primary.btn-lg").eq(1).hide();
+  }
 }

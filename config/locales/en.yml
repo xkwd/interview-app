@@ -58,7 +58,7 @@ en:
       pending: pending
 
   comments:
-    create_comment: Create Comment
+    create_comment: SUBMIT
 
   activerecord:
     attributes:
