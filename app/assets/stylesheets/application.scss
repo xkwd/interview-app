@@ -227,6 +227,19 @@ h3.section-name {
   margin-right: -2px;
 }
 
+.discussion-separator {
+  background-color: #343a40;
+  height: 3px;
+  margin-top: 20px;
+}
+
+.discussion-title {
+  text-align: center;
+  font-size: 2em;
+  margin-top: -9px;
+  color: #343a40;
+}
+
 @media (max-width: 768px) {
   .img-container {
     height: 200px;

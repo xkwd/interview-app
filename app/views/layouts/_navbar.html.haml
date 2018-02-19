@@ -8,8 +8,9 @@
       %span.navbar-toggler-icon
     %div#mainNav.collapse.navbar-collapse
       %div.navbar-nav.ml-auto
-        .nav-item
-          = link_to t(:add_interview), new_interview_path, type: "button", class: "btn btn-outline-warning"
+        - if user_signed_in?
+          .nav-item
+            = link_to t(:add_interview), new_interview_path, type: "button", class: "btn btn-outline-warning"
         .nav-item
           = search_form_for @search, url: search_interviews_path, html: { method: :post, class: "form-inline mx-2" } do |f|
             .input-group

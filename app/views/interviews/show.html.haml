@@ -20,6 +20,8 @@
                     = image_tag "#{answer.image_url(:thumb)}", class: "section-img"
                 %div
                   %p.section-text.text-justify=  answer.content
+        .discussion-separator
+        %h4.discussion-title DISCUSSION
         .comments
           = render partial: "comments/comments", locals: { commentable: @interview }
         .comment-form

@@ -44,7 +44,11 @@ document.addEventListener("turbolinks:load", function() {
   });
 
   $(function() {
-    $(".comment-reply-link.btn.btn-outline-primary.btn-lg").eq(1).hide();
+    if ($('.comment').length < 10) {
+      $(".comment-reply-link.btn.btn-outline-primary.btn-lg").hide();
+    } else {
+      $(".comment-reply-link.btn.btn-outline-primary.btn-lg").eq(1).hide();
+    }
   });
 });
 
