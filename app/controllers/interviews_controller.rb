@@ -1,5 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview]
+  before_action :set_interview, only: [:edit, :update]
 
   def index
     @interviews = @search.result(distinct: true).includes(:answers).page(params[:page]).per(2)
@@ -42,7 +43,6 @@ class InterviewsController < ApplicationController
   end
 
   def edit
-    @interview = Interview.find(params[:id])
     @countries = Country.all.map { |c| [c.name, c.id] }
     unless @interview.user_id == current_user.id
       flash[:notice] = 'Access denied as you are not owner of this Interview'
@@ -51,7 +51,6 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    @interview = Interview.find(params[:id])
     if @interview.update(interview_params)
       flash[:success] = 'The interview has been updated'
       redirect_to interview_path(@interview)
@@ -74,5 +73,9 @@ class InterviewsController < ApplicationController
   def interview_params
     params.require(:interview).permit(:title, :description, :country_id, :cover, answers_attributes:
                                      [:id, :content, :section_id, :image])
+  end
+
+  def set_interview
+    @interview = Interview.find(params[:id])
   end
 end
