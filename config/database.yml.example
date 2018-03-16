@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host:
+  port:
+  username:
+  password:
+
+development:
+  <<: *default
+  database: intapp_development
+
+test:
+  <<: *default
+  database: intapp_test
+
+production:
+  <<: *default
+  database: intapp_production
