@@ -1,0 +1,67 @@
+AlignParameters:
+  Enabled: false
+AmbiguousBlockAssociation:
+  Enabled: false
+ClassLength:
+  CountComments: false
+  Max: 200
+Documentation:
+  Enabled: false
+LineLength:
+  Max: 120
+MethodLength:
+  CountComments: false
+  Max: 20
+Metrics/AbcSize:
+ Max: 25
+Metrics/ModuleLength:
+  Exclude:
+    - '**/*_spec.rb'
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'
+
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  SupportedStyles:
+    - aligned
+    - indented
+Style/Lambda:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/SymbolArray:
+  Enabled: false
+Layout/DotPosition:
+  EnforcedStyle: leading
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/NumericLiterals:
+  Enabled: false
+Style/NumericLiteralPrefix:
+  Enabled: false
+Style/RescueModifier:
+  Exclude:
+    - 'spec/**/*'
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+Layout/TrailingWhitespace:
+  Enabled: false
+Layout/ExtraSpacing:
+  AllowForAlignment: true
+  ForceEqualSignAlignment: false
+  Exclude:
+    - 'spec/factories/**/*'

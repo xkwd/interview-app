@@ -1,4 +1,6 @@
-country_cities_list = {"Australia" => ["Melbourne"],
+Rails.logger = Logger.new(STDOUT)
+
+country_cities_list = { "Australia" => ["Melbourne"],
                        "Austria" => ["Vienna"],
                        "Belgium" => ["Brussels"],
                        "Canada" => ["Toronto", "Vancouver", "Montreal"],
@@ -27,13 +29,18 @@ country_cities_list = {"Australia" => ["Melbourne"],
                        "Spain" => ["Madrid", "Barcelona"],
                        "Sweden" => ["Stockholm", "Gothenburg", "Malmo"],
                        "Switzerland" => ["Zurich", "Geneva"],
-                       "United States" => ["New York", "Los Angeles"]}
+                       "United States" => ["New York", "Los Angeles"] }
+
+Rails.logger.info "Creating countries..."
+
 Country.delete_all
 country_cities_list.each_key do |country|
   Country.create!(
     name: country
   )
 end
+
+Rails.logger.info "Creating cities..."
 
 City.delete_all
 country_cities_list.each do |k, v|
@@ -45,6 +52,8 @@ country_cities_list.each do |k, v|
   end
 end
 
+Rails.logger.info "Creating sections..."
+
 Section.delete_all
 5.times do
   Section.create!(
@@ -52,6 +61,8 @@ Section.delete_all
     description: Faker::Lorem.paragraphs.join
   )
 end
+
+Rails.logger.info "Creating users..."
 
 User.delete_all
 5.times do
@@ -61,6 +72,8 @@ User.delete_all
     password: "T3RyWrKcD9K"
   )
 end
+
+Rails.logger.info "Creating interviews..."
 
 Interview.delete_all
 User.ids.each do |id|
@@ -72,6 +85,8 @@ User.ids.each do |id|
     published: true
   )
 end
+
+Rails.logger.info "Creating answers..."
 
 Answer.delete_all
 Section.ids.each do |id|
@@ -101,6 +116,8 @@ Section.ids.each do |id|
     section_id: id
   )
 end
+
+Rails.logger.info "Creating comments..."
 
 Comment.delete_all
 Interview.all.each do |interview|

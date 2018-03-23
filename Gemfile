@@ -18,6 +18,7 @@ gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'lightbox2-rails', '~> 2.8', '>= 2.8.2.1'
 gem 'meta-tags', '~> 2.7', '>= 2.7.1'
 gem 'mini_magick', '~> 4.8'
+gem 'pg', '~> 0.20'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.4'
 gem 'ransack', '~> 1.8', '>= 1.8.7'
@@ -38,7 +39,6 @@ group :development, :test do
   gem 'rspec', '~> 3.7'
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'rubocop', require: false
-
 end
 
 group :test do
