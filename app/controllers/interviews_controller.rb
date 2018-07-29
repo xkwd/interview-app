@@ -68,6 +68,11 @@ class InterviewsController < ApplicationController
     render :index
   end
 
+  def recently_published
+    @interviews = RecentlyPublishedInterviewsQuery.call.page(params[:page]).per(2)
+    render 'index'
+  end
+
   private
 
   def interview_params
