@@ -56,6 +56,11 @@ en:
       edit: edit
       published: published
       pending: pending
+    new_form:
+      title_placeholder: Type in your title
+      description_placeholder: Briefly describe your story. Your text will be visible on index page with all interviews
+      answer_placeholder: Share your opinion and thoughts on the topic. No size limits
+      create: Create
 
   comments:
     create_comment: SUBMIT
