@@ -28,6 +28,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem "reform"
 gem "reform-rails"
+gem 'draper'
 
 group :development, :test do
   gem 'binding_of_caller', '~> 0.8.0'
