@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
   def new
     @comment = Comment.new
   end
@@ -7,7 +6,7 @@ class CommentsController < ApplicationController
   def create
     result = CommentServices::CreateComment.new(comment_params).call
 
-    if result
+    if result.success?
       flash[:notice] = "Your comment was posted"
       @interview = Interview.find(params[:interview_id])
     else
