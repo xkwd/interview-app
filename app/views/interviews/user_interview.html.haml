@@ -10,7 +10,4 @@
               %td
                 = link_to t(".edit"), edit_interview_path(interview)
               %td.text-right
-                - if interview.published?
-                  %span.badge.badge-warning= t(".published")
-                - else
-                  %span.badge.badge-secondary= t(".pending")
+                %span.badge.badge-warning= interview.publication_status

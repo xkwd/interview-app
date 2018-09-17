@@ -60,7 +60,7 @@ class InterviewsController < ApplicationController
   end
 
   def user_interview
-    @interviews = current_user.interviews.order("created_at DESC")
+    @interviews = current_user.interviews.order("created_at DESC").decorate
   end
 
   def search
