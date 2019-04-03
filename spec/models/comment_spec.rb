@@ -29,7 +29,7 @@ RSpec.describe Comment, type: :model do
   it { should validate_presence_of(:commenter_email) }
   it { should validate_presence_of(:user_id) }
   it { should belong_to(:commentable) }
-  it { should belong_to(:user) }
+  it { should belong_to(:user).without_validating_presence }
   it { should have_many(:comments) }
   it { should have_db_index(:user_id) }
 
