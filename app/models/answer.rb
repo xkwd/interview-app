@@ -2,7 +2,7 @@
 #
 # Table name: answers
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  content      :text             not null
 #  interview_id :integer
 #  section_id   :integer

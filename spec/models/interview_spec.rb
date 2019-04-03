@@ -2,7 +2,7 @@
 #
 # Table name: interviews
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  title            :string
 #  published_at     :datetime
 #  description      :text
