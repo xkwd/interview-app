@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
   private
 
   def build_search
-    @search = Interview.published.order("created_at DESC").search(params[:q])
+    @search = Interview.published.order("created_at DESC").ransack(params[:q])
   end
 end

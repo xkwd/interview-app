@@ -56,7 +56,7 @@ Style/NumericLiteralPrefix:
 Style/RescueModifier:
   Exclude:
     - 'spec/**/*'
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
 Layout/TrailingWhitespace:
   Enabled: false

@@ -9,7 +9,7 @@ describe CoverUploader do
 
   before do
     CoverUploader.enable_processing = true
-    File.open('public/uploads/interview/cover/59/China-interview-cover.jpeg') { |f| uploader.store!(f) }
+    File.open("spec/images/test_image.jpeg") { |f| uploader.store!(f) }
   end
 
   after do

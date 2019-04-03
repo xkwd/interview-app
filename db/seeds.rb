@@ -78,7 +78,7 @@ Rails.logger.info "Creating interviews..."
 Interview.delete_all
 User.ids.each do |id|
   Interview.create!(
-    title: Faker::Dune.saying,
+    title: Faker::Books::Dune.saying,
     description: Faker::Lorem.paragraphs(rand(2...3)).join,
     user_id: id,
     country_id: Country.ids.sample,
