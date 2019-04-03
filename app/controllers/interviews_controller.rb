@@ -38,24 +38,24 @@ class InterviewsController < ApplicationController
                          It just needs a review before going public."
       redirect_to my_interviews_path
     else
-      render 'new'
+      render "new"
     end
   end
 
   def edit
     @countries = Country.all.map { |c| [c.name, c.id] }
-    unless @interview.user_id == current_user.id
-      flash[:notice] = 'Access denied as you are not owner of this Interview'
-      redirect_to interview_path
-    end
+    return if @interview.user_id == current_user.id
+    
+    flash[:notice] = "Access denied as you are not owner of this Interview"
+    redirect_to interview_path
   end
 
   def update
     if @interview.update(interview_params)
-      flash[:success] = 'The interview has been updated'
+      flash[:success] = "The interview has been updated"
       redirect_to interview_path(@interview)
     else
-      render 'edit'
+      render "edit"
     end
   end
 
@@ -70,7 +70,7 @@ class InterviewsController < ApplicationController
 
   def recently_published
     @interviews = RecentlyPublishedInterviewsQuery.call.page(params[:page]).per(2)
-    render 'index'
+    render "index"
   end
 
   def new_form
@@ -84,9 +84,9 @@ class InterviewsController < ApplicationController
 
     if @form.validate(params[:interview])
       @form.save
-      redirect_to '/my_interviews'
+      redirect_to "/my_interviews"
     else
-      render 'new_form'
+      render "new_form"
     end
   end
 
