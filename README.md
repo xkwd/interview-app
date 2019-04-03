@@ -8,8 +8,8 @@ This no name app is currently in a playground state, yet is already lead by a st
 
 ## Stack
 
-* __Ruby__: `2.4.3`
-* __Rails__: `5.1.4`
+* __Ruby__: `2.6.2`
+* __Rails__: `5.2.3`
 * __Database__: `PostgreSQL`
 
 ## Details
