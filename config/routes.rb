@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :interviews, except: [:destroy] do
-    resources :comments
+    resources :comments do
+      post 'upvote', to: 'ratings#upvote'
+      post 'downvote', to: 'ratings#downvote'
+
+    end
     collection do
       match 'search' => 'interviews#search', via: [:get, :post], as: :search
       get 'new_form', to: 'interviews#new_form'
