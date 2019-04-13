@@ -26,6 +26,7 @@
 class User < ApplicationRecord
   has_many :interviews
   has_many :comments
+  has_many :ratings
   validates :name, :email, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
