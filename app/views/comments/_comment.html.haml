@@ -6,8 +6,14 @@
       %strong= link_to comment.user.name, "#"
     %small.text-muted.left= comment.created_at.strftime("%Y-%m-%d, %H:%M")
     %small.text-muted.right
-      = link_to "+" + comment.upvotes.to_s, interview_comment_upvote_path(comment_id: comment.id, interview_id: @interview.id), method: :post
-      = link_to "-" + comment.downvotes.to_s, interview_comment_downvote_path(comment_id: comment.id, interview_id: @interview.id), method: :post
+      - if comment.upvoted_by?(current_user)
+        %strong= "+" + comment.upvotes.to_s
+      - else
+        = link_to "+" + comment.upvotes.to_s, interview_comment_upvote_path(comment_id: comment.id, interview_id: @interview.id), method: :post
+      - if comment.downvoted_by?(current_user)
+        %strong= "-" + comment.downvotes.to_s
+      - else
+        = link_to "-" + comment.downvotes.to_s, interview_comment_downvote_path(comment_id: comment.id, interview_id: @interview.id), method: :post
   .card-body
     %p= comment.body
     .card-text.text-right.reply= link_to "REPLY", "#", id: comment.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{comment.id}, 'Comment')", class: "comment-reply-link btn btn-outline-primary btn-sm"

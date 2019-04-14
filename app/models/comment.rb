@@ -33,4 +33,12 @@ class Comment < ApplicationRecord
   def downvotes
     ratings.where(positive: false).count
   end
+
+  def upvoted_by?(user)
+    ratings.where(positive: true, user: user).present?
+  end
+
+  def downvoted_by?(user)
+    ratings.where(positive: false, user: user).present?
+  end
 end
