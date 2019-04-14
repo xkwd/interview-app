@@ -10,7 +10,7 @@ class RatingsController < ApplicationController
   private
 
   def vote(positive:)
-    rating = Rating.where(comment_id: params[:comment_id], user_id: current_or_guest_user.id).first_or_initialize
+    rating = Rating.where(comment_id: params[:comment_id], user_id: current_user.id).first_or_initialize
     rating.positive = positive
     rating.save
     alert = positive ? "You've already upvoted this comment" : "You've already downvoted this comment"
