@@ -14,7 +14,7 @@ This no name app is currently in a playground state, yet is already lead by a st
 
 ## Details
 
-* Nested AJAXified comments with polymorphic associations
+* Nested AJAXified comments with likes (as '+') and dislikes (as '-')
 * Two level deep nested forms
 * Endless AJAXified scroll
 * Search with Ransack
