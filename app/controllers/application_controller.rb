@@ -2,8 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :build_search
 
-  def current_user
-    super || guest_user
+  helper_method :current_or_guest_user
+
+  def current_or_guest_user
+    current_user || guest_user
   end
 
   private
