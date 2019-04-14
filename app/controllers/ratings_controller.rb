@@ -15,6 +15,12 @@ class RatingsController < ApplicationController
     rating.save
     alert = positive ? "You've already upvoted this comment" : "You've already downvoted this comment"
     flash[:alert] = alert unless rating.saved_change_to_positive?
-    redirect_to Interview.find(params[:interview_id])
+    @comment = Comment.find(params[:comment_id])
+    @interview = Interview.find(params[:interview_id])
+
+    respond_to do |format|
+      format.html { redirect_to @interview }
+      format.js
+    end
   end
 end
