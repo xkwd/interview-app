@@ -15,7 +15,7 @@ class RatingsController < ApplicationController
     rating.save
     alert = positive ? "You've already upvoted this comment" : "You've already downvoted this comment"
     flash[:alert] = alert unless rating.saved_change_to_positive?
-    @comment = Comment.find(params[:comment_id])
+    @comment = CommentDecorator.new(Comment.find(params[:comment_id]))
     @interview = Interview.find(params[:interview_id])
 
     respond_to do |format|
