@@ -39,7 +39,7 @@ Layout/MultilineOperationIndentation:
 Style/Lambda:
   Enabled: false
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 Style/SymbolArray:
   Enabled: false
 Layout/DotPosition:

@@ -31,6 +31,7 @@ RSpec.describe Comment, type: :model do
   it { should belong_to(:commentable) }
   it { should belong_to(:user).without_validating_presence }
   it { should have_many(:comments) }
+  it { should have_many(:ratings) }
   it { should have_db_index(:user_id) }
 
   it "is valid for guest user" do
