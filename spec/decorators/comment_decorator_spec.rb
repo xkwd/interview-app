@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CommentDecorator do
+describe CommentDecorator do
   let(:comment) { create(:comment) }
   let(:user1) { create(:user) }
   let(:user2) { create(:user) }
@@ -11,14 +11,25 @@ RSpec.describe CommentDecorator do
   describe '#upvotes' do
     it 'shows correct count of upvotes' do
       expect(decorated_comment.upvotes)
-        .to eq(1)
+        .to eq('1')
     end
   end
 
   describe '#downvotes' do
     it 'shows correct count of upvotes' do
-      expect(decorated_comment.downvotes)
-        .to eq(1)
+      expect(decorated_comment.downvotes).to eq('1')
+    end
+  end
+
+  describe '#upvoted_by?' do
+    it 'identifies whether a comment has been upvoted by a given user' do
+      expect(decorated_comment.upvoted_by?(user1)).to be(true)
+    end
+  end
+
+  describe '#downvoted_by?' do
+    it 'identifies whether a comment has been downvoted by a given user' do
+      expect(decorated_comment.downvoted_by?(user2)).to be(true)
     end
   end
 end

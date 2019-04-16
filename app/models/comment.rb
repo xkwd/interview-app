@@ -25,12 +25,4 @@ class Comment < ApplicationRecord
   validates :body, presence: true
   validates :commenter_name, :commenter_email, presence: true, unless: :user_id
   validates :user_id, presence: true, unless: :commenter_name
-
-  def upvoted_by?(user)
-    ratings.where(positive: true, user: user).present?
-  end
-
-  def downvoted_by?(user)
-    ratings.where(positive: false, user: user).present?
-  end
 end
