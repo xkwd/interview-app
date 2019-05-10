@@ -52,7 +52,6 @@ group :test do
 end
 
 group :development do
-  gem 'annotate'
   gem 'better_errors', '~> 2.4'
   gem 'html2haml', '~> 2.2'
   gem 'listen', '>= 3.0.5', '< 3.2'

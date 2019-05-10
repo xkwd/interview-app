@@ -1,28 +1,3 @@
-# == Schema Information
-#
-# Table name: interviews
-#
-#  id               :bigint(8)        not null, primary key
-#  title            :string
-#  published_at     :datetime
-#  description      :text
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  user_id          :integer
-#  country_id       :integer
-#  published        :boolean          default(FALSE)
-#  slug             :string
-#  cover            :string
-#  meta_title       :string
-#  meta_description :string
-#
-# Indexes
-#
-#  index_interviews_on_country_id  (country_id)
-#  index_interviews_on_slug        (slug) UNIQUE
-#  index_interviews_on_user_id     (user_id)
-#
-
 require 'rails_helper'
 
 RSpec.describe Interview, type: :model do
