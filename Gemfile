@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+ruby '2.6.2'
+
 gem 'bootsnap', '~> 1.4', '>= 1.4.2'
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 gem 'carrierwave', '~> 1.2', '>= 1.2.2'
