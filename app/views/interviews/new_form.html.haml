@@ -26,7 +26,7 @@
           .form-group.col-md-4
             .card.bg-light
               .card-body
-                = f.select :country_id, @countries, {}, class: "form-control", prompt: "Country"
+                = f.select :country_id, @countries_list, {}, class: "form-control", prompt: "Country"
         .row
           .col-sm-6.offset-sm-3
             = f.submit t(".create"), type: "submit", class: "btn btn-info btn-block"

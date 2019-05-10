@@ -1,6 +1,7 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview]
   before_action :set_interview, only: [:edit, :update]
+  before_action :countries_list, only: [:new, :create, :edit, :new_form]
 
   def index
     @interviews = @search.result(distinct: true).includes(:answers).page(params[:page]).per(2)
@@ -22,7 +23,6 @@ class InterviewsController < ApplicationController
 
   def new
     @interview = current_user.interviews.build
-    @countries = Country.all.map { |c| [c.name, c.id] }
     Section.all.each do |section|
       @interview.answers.build(
         content: "",
@@ -43,9 +43,8 @@ class InterviewsController < ApplicationController
   end
 
   def edit
-    @countries = Country.all.map { |c| [c.name, c.id] }
     return if @interview.user_id == current_user.id
-    
+
     flash[:notice] = "Access denied as you are not owner of this Interview"
     redirect_to interview_path
   end
@@ -74,7 +73,6 @@ class InterviewsController < ApplicationController
   end
 
   def new_form
-    @countries = Country.all.map { |c| [c.name, c.id] }
     @form = InterviewForm.new(Interview.new, author: current_user)
     @form.prepopulate!
   end
@@ -99,5 +97,9 @@ class InterviewsController < ApplicationController
 
   def set_interview
     @interview = Interview.find(params[:id])
+  end
+
+  def countries_list
+    @countries_list ||= Country.all.map { |c| [c.name, c.id] }
   end
 end
