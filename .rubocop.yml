@@ -28,7 +28,6 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
-    - 'Gemfile'
     - 'Rakefile'
 
 Layout/MultilineOperationIndentation:
