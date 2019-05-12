@@ -4,7 +4,8 @@ RSpec.describe InterviewsController, type: :controller do
   let!(:user)  { create(:user) }
   let!(:user1) { create(:user) }
   let!(:user2) { create(:user) }
-  let(:interview) { build(:interview) }
+  let(:country) { create(:country) }
+  let(:interview) { build(:interview, user: user, country: country) }
   let(:invalid_interview) { build(:interview, title: nil) }
   let!(:interview1) { create(:interview, user: user1, title: "Green yellow blue") }
   let!(:interview2) { create(:interview, user: user1, title: "Green blue") }
@@ -69,7 +70,9 @@ RSpec.describe InterviewsController, type: :controller do
     end
 
     context "with valid attributes" do
+
       it "saves the new interview in the database" do
+        # binding.pry
         expect{ post :create, params: { interview: interview.attributes } }.to change(Interview, :count).by(1)
       end
 
