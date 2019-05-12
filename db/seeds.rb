@@ -69,7 +69,7 @@ User.delete_all
   User.create!(
     email: Faker::Internet.email,
     name: Faker::Name.name,
-    password: "T3RyWrKcD9K"
+    password: "password"
   )
 end
 
