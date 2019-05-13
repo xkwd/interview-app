@@ -10,7 +10,8 @@ class RatingsController < ApplicationController
   private
 
   def vote(positive:)
-    @comment = CommentDecorator.new(Comment.find(params[:comment_id]))
+    @comment = Comment.find(params[:comment_id])
+    @decorated_comment = CommentDecorator.new(Comment.find(params[:comment_id]))
     @interview = Interview.find(params[:interview_id])
     set_rating(positive: positive)
 

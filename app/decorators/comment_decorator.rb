@@ -1,9 +1,4 @@
 class CommentDecorator < SimpleDelegator
-  def initialize(comment)
-    @comment = comment
-    super
-  end
-
   def upvotes
     ratings.where(positive: true).count.to_s
   end
