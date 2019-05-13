@@ -163,12 +163,12 @@ RSpec.describe InterviewsController, type: :controller do
 
       it "shows current user interviews" do
         get :user_interview
-        expect(assigns(:interviews)).to include(interview1, interview2, interview3)
+        expect(assigns(:decorated_user_interviews)).to include(interview1, interview2, interview3)
       end
 
       it "does NOT show interviews of other users" do
         get :user_interview
-        expect(assigns(:interviews)).not_to include(interview4, interview5)
+        expect(assigns(:decorated_user_interviews)).not_to include(interview4, interview5)
       end
     end
   end
