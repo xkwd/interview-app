@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AlignParameters:
   Enabled: false
 AmbiguousBlockAssociation:
@@ -64,3 +66,6 @@ Layout/ExtraSpacing:
   ForceEqualSignAlignment: false
   Exclude:
     - 'spec/factories/**/*'
+
+RSpec/ImplicitExpect:
+  EnforcedStyle: should

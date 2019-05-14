@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
   gem 'rspec_junit_formatter', '~> 0.4.1'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'shoulda-matchers', '~> 4.0', '>= 4.0.1'
 end
 
