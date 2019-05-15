@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :interviews, except: [:destroy] do
-    resources :comments do
+    resources :comments, only: [:create] do
       post 'upvote', to: 'ratings#upvote'
       post 'downvote', to: 'ratings#downvote'
 

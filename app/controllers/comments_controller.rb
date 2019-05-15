@@ -1,8 +1,4 @@
 class CommentsController < ApplicationController
-  def new
-    @comment = Comment.new
-  end
-
   def create
     result = CommentServices::CreateComment.new(comment_params).call
 
@@ -20,8 +16,8 @@ class CommentsController < ApplicationController
 
   private
 
-    def comment_params
-      params.require(:comment).permit(:commentable_type, :commentable_id, :body,
-                                      :commenter_name, :commenter_email, :user_id)
-    end
+  def comment_params
+    params.require(:comment).permit(:commentable_type, :commentable_id, :body,
+                                    :commenter_name, :commenter_email, :user_id)
+  end
 end
