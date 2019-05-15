@@ -9,8 +9,6 @@ ClassLength:
   Max: 200
 Documentation:
   Enabled: false
-LineLength:
-  Max: 120
 MethodLength:
   CountComments: false
   Max: 20
