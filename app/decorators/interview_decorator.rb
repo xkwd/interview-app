@@ -8,7 +8,9 @@ class InterviewDecorator < SimpleDelegator
   end
 
   def publication_status
-    published? ? "Published on #{published_at}" : 'Unpublished'
+    return "Published on #{published_at}" if published?
+
+    'Unpublished'
   end
 
   def published_at
