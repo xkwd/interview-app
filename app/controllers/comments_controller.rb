@@ -1,23 +1,18 @@
 class CommentsController < ApplicationController
   def create
-    result = CommentServices::CreateComment.new(comment_params).call
+    @facade = CreateFacade.new(params)
 
-    if result.success?
-      flash[:notice] = "Your comment was posted"
+    if @facade.save
+      flash[:notice] = 'Your comment has been posted'
+      # FIXME: Remove this instance variable when
+      #   other controllers are refactored using facades
       @interview = Interview.find(params[:interview_id])
     else
-      flash[:alert] = "Something went wrong with your comment"
+      flash[:alert] = 'Something went wrong with your comment'
     end
 
     respond_to do |format|
       format.js
     end
-  end
-
-  private
-
-  def comment_params
-    params.require(:comment).permit(:commentable_type, :commentable_id, :body,
-                                    :commenter_name, :commenter_email, :user_id)
   end
 end

@@ -1,28 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
-  let(:interview) { FactoryBot.create(:interview) }
-  let(:comment) { FactoryBot.create(:comment, commentable: interview) }
-  let(:invalid_comment) { FactoryBot.build(:comment, commenter_name: nil, user_id: nil) }
+  describe 'POST #create' do
+    let(:klass) { described_class::CreateFacade }
+    let(:facade) { instance_double(klass) }
+    let(:params) { { interview_id: 5, comment: :comment_attributes } }
 
-  context "when params are valid" do
-    it "creates a new comment" do
-      params = { interview_id: interview.id, comment: comment.attributes }
-      expect { post :create, xhr: true, params: params, format: :js }.to change(Comment, :count).by(1)
+    before do
+      allow(klass).to receive_messages(new: facade)
+      allow(facade).to receive_messages(save: true)
+      allow(Interview).to receive_messages(find: :interview)
     end
 
-    it "renders 200" do
-      params = { interview_id: interview.id, comment: comment.attributes }
-      post :create, xhr: true, params: params, format: :js
-      expect(response.status).to be(200)
-    end
-  end
+    it 'renders create action' do
+      post :create, xhr: true, params: params
 
-  context "when params are invalid" do
-    it "does not create a new comment" do
-      params = { interview_id: interview.id, comment: invalid_comment.attributes }
-      expect { post :create, xhr: true, params: params, format: :js }.not_to change(Comment, :count)
+      expect(assigns(:facade)).to eq facade
+      expect(response).to have_http_status(:ok)
+      expect(klass).to have_received(:new).with(anything)
     end
   end
-
 end
