@@ -67,3 +67,9 @@ Layout/ExtraSpacing:
 
 RSpec/ImplicitExpect:
   EnforcedStyle: should
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/controllers/**/*
+    - spec/system/**/*
+    - spec/requests/**/*
