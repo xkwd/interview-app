@@ -13,6 +13,5 @@ Rails.application.routes.draw do
   end
   devise_for :users
   get 'my_interviews', to: 'interviews#user_interview'
-  get 'recently_published', to: 'interviews#recently_published'
   root 'interviews#index'
 end

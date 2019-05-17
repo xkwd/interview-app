@@ -68,11 +68,6 @@ class InterviewsController < ApplicationController
     render :index
   end
 
-  def recently_published
-    @interviews = RecentlyPublishedInterviewsQuery.call.page(params[:page]).per(2)
-    render "index"
-  end
-
   def new_form
     @form = InterviewForm.new(Interview.new, author: current_user)
     @form.prepopulate!
