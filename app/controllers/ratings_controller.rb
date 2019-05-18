@@ -1,10 +1,6 @@
 class RatingsController < ApplicationController
-  def upvote
-    vote(positive: true)
-  end
-
-  def downvote
-    vote(positive: false)
+  def create
+    vote(positive: params[:positive])
   end
 
   private
@@ -13,7 +9,7 @@ class RatingsController < ApplicationController
     @comment = Comment.find(params[:comment_id])
     @decorated_comment = CommentDecorator.new(Comment.find(params[:comment_id]))
     @interview = Interview.find(params[:interview_id])
-    set_rating(positive: positive)
+    rate(positive: positive)
 
     respond_to do |format|
       format.html { redirect_to @interview }
@@ -21,8 +17,13 @@ class RatingsController < ApplicationController
     end
   end
 
-  def set_rating(positive:)
-    rating = Rating.where(comment_id: params[:comment_id], user_id: current_or_guest_user.id).first_or_initialize
+  def rate(positive:)
+    rating =
+      Rating.where(
+        comment_id: params[:comment_id],
+        user_id: current_or_guest_user.id
+      ).first_or_initialize
+
     rating.positive = positive
     rating.save
   end

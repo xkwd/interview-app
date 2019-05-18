@@ -1,8 +1,18 @@
 - if comment.upvoted_by?(current_or_guest_user)
   %strong= "+" + comment.upvotes
 - else
-  = link_to "+" + comment.upvotes, interview_comment_upvote_path(comment_id: comment.id, interview_id: @interview.id), method: :post, remote: true
+  = link_to "+" + comment.upvotes,
+            interview_comment_ratings_path(comment_id: comment.id,
+                                           interview_id: @interview.id,
+                                           positive: true),
+            method: :post,
+            remote: true
 - if comment.downvoted_by?(current_or_guest_user)
   %strong= "-" + comment.downvotes
 - else
-  = link_to "-" + comment.downvotes, interview_comment_downvote_path(comment_id: comment.id, interview_id: @interview.id), method: :post, remote: true
+  = link_to "-" + comment.downvotes,
+            interview_comment_ratings_path(comment_id: comment.id,
+                                           interview_id: @interview.id,
+                                           positive: false),
+            method: :post,
+            remote: true
