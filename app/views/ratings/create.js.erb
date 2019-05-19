@@ -1,1 +1,1 @@
-$("#rating-" + "<%= @comment.id %>").html("<%= j render partial: 'ratings/ratings', locals: { comment: @decorated_comment } %>");
+$("#rating-" + "<%= @facade.comment.id %>").html("<%= j render partial: 'ratings/ratings', locals: { comment: @facade.comment, interview: @facade.interview } %>");

@@ -3,7 +3,7 @@
 - else
   = link_to "+" + comment.upvotes,
             interview_comment_ratings_path(comment_id: comment.id,
-                                           interview_id: @interview.id,
+                                           interview_id: interview.id,
                                            positive: true),
             method: :post,
             remote: true
@@ -12,7 +12,7 @@
 - else
   = link_to "-" + comment.downvotes,
             interview_comment_ratings_path(comment_id: comment.id,
-                                           interview_id: @interview.id,
+                                           interview_id: interview.id,
                                            positive: false),
             method: :post,
             remote: true

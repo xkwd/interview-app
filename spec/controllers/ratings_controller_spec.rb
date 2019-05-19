@@ -1,70 +1,29 @@
 require 'rails_helper'
 
 describe RatingsController, type: :controller do
-  let!(:user)       { create(:user) }
-  let(:interview)   { create(:interview) }
-  let(:comment)     { create(:comment) }
-
-  let(:params) do
-    {
-      comment_id: comment.id,
-      interview_id: interview.id,
-      positive: positive
-    }
-  end
-
-  shared_examples 'handling votes and redirecting' do
-    context 'without previous upvotes' do
-      it 'adds a vote to a comment' do
-        expect { subject }.to change(Rating, :count).by(1)
-      end
-    end
-
-    context 'with previous upvotes' do
-      it 'does not add a vote to a comment' do
-        subject
-        expect { subject }.not_to change(Rating, :count)
-      end
-    end
-
-    it 'redirects to an interview page' do
-      expect(subject).to redirect_to(interview_path(interview))
-    end
-  end
-
   describe 'POST #create' do
-    let(:subject) { post :create, params: params }
+    let(:klass) { described_class::CreateFacade }
+    let(:facade) { instance_double(klass) }
+    let(:user) { instance_double(User, id: 14) }
 
-    context 'when a guest user is upvoting' do
-      let(:positive) { true }
-
-      include_examples 'handling votes and redirecting'
+    let(:params) do
+      {
+        interview_id: 4,
+        comment_id: 7
+      }
     end
 
-    context 'when a signed in user is upvoting' do
-      let(:positive) { true }
-
-      before do
-        sign_in user
-      end
-
-      include_examples 'handling votes and redirecting'
+    before do
+      allow(controller).to receive(:current_or_guest_user).and_return(user)
+      allow(klass).to receive_messages(call: facade)
     end
 
-    context 'when a guest user is downvoting' do
-      let(:positive) { false }
+    it 'renders create action' do
+      post :create, xhr: true, params: params
 
-      include_examples 'handling votes and redirecting'
-    end
-
-    context 'when a signed in user is downvoting' do
-      let(:positive) { false }
-
-      before do
-        sign_in user
-      end
-
-      include_examples 'handling votes and redirecting'
+      expect(assigns(:facade)).to eq facade
+      expect(response).to have_http_status(:ok)
+      expect(klass).to have_received(:call).with(anything, 14)
     end
   end
 end
