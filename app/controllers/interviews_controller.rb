@@ -18,7 +18,7 @@ class InterviewsController < ApplicationController
   end
 
   def show
-    @interview = Interview.published.find(params[:id])
+    @facade = ShowFacade.new(params)
   end
 
   def new

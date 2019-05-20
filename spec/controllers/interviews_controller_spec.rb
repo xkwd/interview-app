@@ -36,15 +36,21 @@ RSpec.describe InterviewsController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested interview to @interview" do
-      get :show, params: { id: interview1 }
-      expect(assigns(:interview)).to eq interview1
+  describe 'GET #show' do
+    let(:klass) { described_class::ShowFacade }
+    let(:facade) { instance_double(klass) }
+    let(:params) { { id: 4 } }
+
+    before do
+      allow(klass).to receive_messages(new: facade)
     end
 
-    it "renders the :show template" do
-      get :show, params: { id: interview1 }
-      expect(response).to render_template :show
+    it 'renders show action' do
+      get :show, params: params
+
+      expect(assigns(:facade)).to eq facade
+      expect(response).to have_http_status(:ok)
+      expect(klass).to have_received(:new).with(anything)
     end
   end
 
