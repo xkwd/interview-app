@@ -4,9 +4,6 @@ class CommentsController < ApplicationController
 
     if @facade.save
       flash[:notice] = 'Your comment has been posted'
-      # FIXME: Remove this instance variable when
-      #   other controllers are refactored using facades
-      @interview = Interview.find(params[:interview_id])
     else
       flash[:alert] = 'Something went wrong with your comment'
     end

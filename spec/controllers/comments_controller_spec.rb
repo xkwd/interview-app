@@ -9,7 +9,6 @@ RSpec.describe CommentsController, type: :controller do
     before do
       allow(klass).to receive_messages(new: facade)
       allow(facade).to receive_messages(save: true)
-      allow(Interview).to receive_messages(find: :interview)
     end
 
     it 'renders create action' do
