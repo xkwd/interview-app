@@ -54,19 +54,22 @@ RSpec.describe InterviewsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
+  describe 'GET #new' do
+    let(:klass) { described_class::NewFacade }
+    let(:facade) { instance_double(klass) }
+
     before do
+      allow(klass).to receive_messages(new: facade)
+
       sign_in user
     end
 
-    it "assigns a new Interview to @interview" do
+    it 'renders new action' do
       get :new
-      expect(assigns(:interview)).to be_a_new(Interview)
-    end
 
-    it "renders the :new template" do
-      get :new
-      expect(response).to render_template :new
+      expect(assigns(:facade)).to eq facade
+      expect(response).to have_http_status(:ok)
+      expect(klass).to have_received(:new).with(user.id)
     end
   end
 

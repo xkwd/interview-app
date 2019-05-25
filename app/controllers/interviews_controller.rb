@@ -22,13 +22,7 @@ class InterviewsController < ApplicationController
   end
 
   def new
-    @interview = current_user.interviews.build
-    Section.all.each do |section|
-      @interview.answers.build(
-        content: "",
-        section_id: section.id
-      )
-    end
+    @facade = NewFacade.new(current_user.id)
   end
 
   def create
