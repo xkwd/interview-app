@@ -103,19 +103,39 @@ RSpec.describe InterviewsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe 'GET #edit' do
+    let(:klass) { described_class::EditFacade }
+    let(:facade) { instance_double(klass) }
+
     before do
-      sign_in user1
+      allow(klass).to receive_messages(new: facade)
+      allow(facade).to receive_messages(authorized?: authorized?)
+
+      sign_in user
     end
 
-    it "assigns the requested interview to @interview" do
-      get :edit, params: { id: interview1 }
-      expect(assigns(:interview)).to eq interview1
+    context 'when authorized to edit' do
+      let(:authorized?) { true }
+
+      it 'renders edit action' do
+        get :edit, params: { id: '2' }
+
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:ok)
+        expect(klass).to have_received(:new).with('2', user.id)
+      end
     end
 
-    it "renders the :edit template" do
-      get :edit, params: { id: interview1 }
-      expect(response).to render_template :edit
+    context 'when NOT authorized to edit' do
+      let(:authorized?) { false }
+
+      it 'renders edit action' do
+        get :edit, params: { id: '2' }
+
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:redirect)
+        expect(klass).to have_received(:new).with('2', user.id)
+      end
     end
   end
 

@@ -1,6 +1,6 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview]
-  before_action :set_interview, only: [:edit, :update]
+  before_action :set_interview, only: [:update]
   before_action :countries_list, only: [:new, :create, :edit, :new_form]
 
   def index
@@ -37,10 +37,14 @@ class InterviewsController < ApplicationController
   end
 
   def edit
-    return if @interview.user_id == current_user.id
+    @facade = EditFacade.new(params[:id], current_user.id)
 
-    flash[:notice] = "Access denied as you are not owner of this Interview"
-    redirect_to interview_path
+    if @facade.authorized?
+      render 'edit'
+    else
+      flash[:notice] = 'Access denied as you are not an owner of this interview'
+      redirect_to interview_path
+    end
   end
 
   def update

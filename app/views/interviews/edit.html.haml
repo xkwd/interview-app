@@ -1,11 +1,11 @@
 .container.mt-4
   .row
     .col-md-8.offset-md-2
-      = form_for @interview do |f|
-        - if @interview.errors.any?
-          %div Yay, #{pluralize(@interview.errors.count, "error")}:
+      = form_for @facade.interview do |f|
+        - if @facade.interview.errors.any?
+          %div Yay, #{pluralize(@facade.interview.errors.count, "error")}:
           %ul
-          - @interview.errors.full_messages.each do |msg|
+          - @facade.interview.errors.full_messages.each do |msg|
             %li= msg
         .form-group
           .card.bg-light
@@ -21,7 +21,7 @@
           .card.bg-light
             .card-body
               %h3.card-title= f.label :cover
-              = image_tag "#{@interview.cover_url}", class: "img-fluid form-control"
+              = image_tag "#{@facade.interview.cover_url}", class: "img-fluid form-control"
               .form-row
                 .form-group.col-md-8
                   %p= f.file_field :cover, class: "form-control"
