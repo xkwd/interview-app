@@ -139,40 +139,47 @@ RSpec.describe InterviewsController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe 'PATCH #update' do
+    let(:klass) { described_class::UpdateFacade }
+    let(:facade) { instance_double(klass) }
+
+    let(:params) do
+      {
+        id: '2',
+        interview: {
+          description: 'updated'
+        }
+      }
+    end
+
     before do
-      @interview = create(:interview, title: "Incorrect title")
+      allow(klass).to receive_messages(new: facade)
+      allow(facade).to receive_messages(save: save)
+
+      sign_in user
     end
 
-    context "valid attributes" do
-      it "locates the requested @interview" do
-        patch :update, params: { id: @interview, interview: attributes_for(:interview) }
-        expect(assigns(:contact)).to eq(@contact)
-      end
+    context 'with valid attributes' do
+      let(:save) { true }
 
-      it "changes @interview's attributes" do
-        patch :update, params: { id: @interview, interview: attributes_for(:interview, title: "Correct title") }
-        @interview.reload
-        expect(@interview.title).to eq("Correct title")
-      end
+      it 'redirects to user interviews' do
+        patch :update, params: params
 
-      it "redirects to the updated interview" do
-        patch :update, params: { id: @interview, interview: attributes_for(:interview) }
-        expect(response).to redirect_to @interview
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:redirect)
+        expect(klass).to have_received(:new).with(anything)
       end
     end
 
-    context "invalid attributes" do
-      it "does NOT change the interview attributes" do
-        patch :update, params: { id: @interview, interview: attributes_for(:interview, title: nil, description: "") }
-        @interview.reload
-        expect(@interview.title).not_to eq(nil)
-        expect(@interview.description).not_to eq("")
-      end
+    context 'with invalid attributes' do
+      let(:save) { false }
 
-      it "re-renders the :edit template" do
-        patch :update, params: { id: @interview, interview: attributes_for(:interview, title: nil, description: "") }
-        expect(response).to render_template :edit
+      it 'renders edit action' do
+        patch :update, params: params
+
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:ok)
+        expect(klass).to have_received(:new).with(anything)
       end
     end
   end

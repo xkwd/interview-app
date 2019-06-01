@@ -1,6 +1,5 @@
 class InterviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :user_interview]
-  before_action :set_interview, only: [:update]
+  before_action :authenticate_user!, only: [:edit, :user_interview, :update]
   before_action :countries_list, only: [:new, :create, :edit, :new_form]
 
   def index
@@ -48,11 +47,13 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    if @interview.update(interview_params)
-      flash[:success] = "The interview has been updated"
-      redirect_to interview_path(@interview)
+    @facade = UpdateFacade.new(params)
+
+    if @facade.save
+      flash[:success] = 'The interview has been updated'
+      redirect_to my_interviews_path
     else
-      render "edit"
+      render 'edit'
     end
   end
 
@@ -87,10 +88,6 @@ class InterviewsController < ApplicationController
   def interview_params
     params.require(:interview).permit(:title, :description, :country_id, :cover, answers_attributes:
                                      [:id, :content, :section_id, :image])
-  end
-
-  def set_interview
-    @interview = Interview.find(params[:id])
   end
 
   def countries_list
