@@ -73,32 +73,43 @@ RSpec.describe InterviewsController, type: :controller do
     end
   end
 
-  describe "POST #create" do
+  describe 'POST #create' do
+    let(:klass) { described_class::CreateFacade }
+    let(:facade) { instance_double(klass) }
+    let(:params) { { title: 'title' } }
+
     before do
+      allow(klass).to receive_messages(new: facade)
+      allow(facade).to receive_messages(save: save)
+
       sign_in user
     end
 
-    context "with valid attributes" do
+    context 'with valid attributes' do
+      let(:save) { true }
 
-      it "saves the new interview in the database" do
-        # binding.pry
-        expect{ post :create, params: { interview: interview.attributes } }.to change(Interview, :count).by(1)
-      end
+      it 'redirects to user interviews' do
+        post :create, params: params
 
-      it "redirects to interviews#show" do
-        post :create, params: { interview: interview.attributes }
-        expect(response).to redirect_to my_interviews_path
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:redirect)
+        expect(klass)
+          .to have_received(:new)
+          .with(hash_including('title'), user.id)
       end
     end
 
-    context "with invalid attributes" do
-      it "does NOT save the new interview in the database" do
-        expect{ post :create, params: { interview: invalid_interview.attributes } }.not_to change(Interview, :count)
-      end
+    context 'with invalid attributes' do
+      let(:save) { false }
 
-      it "re-renders the :new template" do
-        post :create, params: { interview: invalid_interview.attributes }
-        expect(response).to render_template :new
+      it 'renders new action' do
+        post :create, params: params
+
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:ok)
+        expect(klass)
+          .to have_received(:new)
+          .with(hash_including('title'), user.id)
       end
     end
   end

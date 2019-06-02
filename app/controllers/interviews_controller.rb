@@ -25,13 +25,15 @@ class InterviewsController < ApplicationController
   end
 
   def create
-    @interview = current_user.interviews.build(interview_params)
-    if @interview.save
-      flash[:success] = "Whoa, your interview has been created.
-                         It just needs a review before going public."
+    @facade = CreateFacade.new(params, current_user.id)
+
+    if @facade.save
+      flash[:success] =
+        "Whoa, your interview has been created. \
+        It just needs a review before going public."
       redirect_to my_interviews_path
     else
-      render "new"
+      render 'new'
     end
   end
 
@@ -84,11 +86,6 @@ class InterviewsController < ApplicationController
   end
 
   private
-
-  def interview_params
-    params.require(:interview).permit(:title, :description, :country_id, :cover, answers_attributes:
-                                     [:id, :content, :section_id, :image])
-  end
 
   def countries_list
     @countries_list ||= Country.all.map { |c| [c.name, c.id] }
