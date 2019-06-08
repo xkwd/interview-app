@@ -69,22 +69,6 @@ class InterviewsController < ApplicationController
     render :index
   end
 
-  def new_form
-    @form = InterviewForm.new(Interview.new, author: current_user)
-    @form.prepopulate!
-  end
-
-  def create_form
-    @form = InterviewForm.new(Interview.new, author: current_user)
-
-    if @form.validate(params[:interview])
-      @form.save
-      redirect_to "/my_interviews"
-    else
-      render "new_form"
-    end
-  end
-
   private
 
   def countries_list
