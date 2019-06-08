@@ -1,4 +1,6 @@
 class InterviewsController::NewFacade
+  include InterviewsController::Common
+
   def initialize(user_id)
     @user_id = user_id
   end

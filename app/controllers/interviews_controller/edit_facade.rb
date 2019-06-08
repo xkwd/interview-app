@@ -1,4 +1,6 @@
 class InterviewsController::EditFacade
+  include InterviewsController::Common
+
   def initialize(interview_id, user_id)
     @interview_id = interview_id
     @user_id = user_id

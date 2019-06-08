@@ -1,6 +1,5 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview, :update]
-  before_action :countries_list, only: [:new, :create, :edit, :new_form]
 
   def index
     @interviews = @search.result(distinct: true).includes(:answers).page(params[:page]).per(2)
@@ -67,11 +66,5 @@ class InterviewsController < ApplicationController
   def search
     index
     render :index
-  end
-
-  private
-
-  def countries_list
-    @countries_list ||= Country.all.map { |c| [c.name, c.id] }
   end
 end

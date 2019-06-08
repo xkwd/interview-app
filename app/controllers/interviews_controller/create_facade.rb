@@ -1,4 +1,6 @@
 class InterviewsController::CreateFacade
+  include InterviewsController::Common
+
   def initialize(params, user_id)
     @params = params
     @user_id = user_id
