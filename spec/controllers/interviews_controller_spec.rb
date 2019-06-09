@@ -13,8 +13,7 @@ RSpec.describe InterviewsController, type: :controller do
   let!(:interview4) { create(:interview, user: user2) }
   let!(:interview5) { create(:interview, user: user2, published: false) }
 
-  it { should route(:get, '/interviews').to(action: :index) }
-  it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
+  it { should route(:get, '/interviews/search').to(action: :index) }
   it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
   it { should route(:get, '/my_interviews').to(action: :user_interview) }
   it { should use_before_action(:authenticate_user!) }
@@ -33,6 +32,28 @@ RSpec.describe InterviewsController, type: :controller do
     it "renders the :index template" do
       get 'index'
       expect(response).to render_template :index
+    end
+
+    context 'with a search query' do
+      let(:params) do
+        {
+          q: {
+            title_or_description_or_answers_content_cont: 'yellow'
+          }
+        }
+      end
+
+      it 'gets all interviews matching the key words' do
+        post :index, params: params
+
+        expect(assigns(:interviews)).to include(interview1, interview3)
+      end
+
+      it 'does NOT show interviews not matching the key words' do
+        post :index, params: params
+
+        expect(assigns(:interviews)).not_to include(interview2, interview4)
+      end
     end
   end
 
@@ -217,18 +238,6 @@ RSpec.describe InterviewsController, type: :controller do
         get :user_interview
         expect(assigns(:decorated_user_interviews)).not_to include(interview4, interview5)
       end
-    end
-  end
-
-  describe "Search interviews" do
-    it "gets all interviews matching the key words" do
-      get :search, params: { q: { title_or_description_or_answers_content_cont: 'yellow' } }
-      expect(assigns(:interviews)).to include(interview1, interview3)
-    end
-
-    it "does NOT show interviews not matching the key words" do
-      get :search, params: { q: { title_or_description_or_answers_content_cont: 'yellow' } }
-      expect(assigns(:interviews)).not_to include(interview2, interview4)
     end
   end
 end

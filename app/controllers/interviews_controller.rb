@@ -62,9 +62,4 @@ class InterviewsController < ApplicationController
     user_interviews = current_user.interviews.order('created_at DESC')
     @decorated_user_interviews = InterviewDecorator.decorate_collection(user_interviews)
   end
-
-  def search
-    index
-    render :index
-  end
 end

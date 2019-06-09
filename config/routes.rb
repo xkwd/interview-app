@@ -4,7 +4,8 @@ Rails.application.routes.draw do
       resources :ratings, only: [:create]
     end
     collection do
-      match 'search' => 'interviews#search', via: [:get, :post], as: :search
+      get :search, action: :index
+      post :search, action: :index
     end
   end
   devise_for :users
