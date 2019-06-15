@@ -18,20 +18,22 @@ RSpec.describe InterviewsController, type: :controller do
   it { should route(:get, '/my_interviews').to(action: :user_interview) }
   it { should use_before_action(:authenticate_user!) }
 
-  describe "GET #index" do
-    it "populates an array of all published interviews" do
-      get :index
-      expect(assigns(:interviews)).to match_array([interview1, interview2])
+  describe 'GET #index' do
+    let(:klass) { described_class::IndexFacade }
+    let(:facade) { instance_double(klass) }
+
+    before do
+      allow(klass).to receive_messages(new: facade)
     end
 
-    it "does NOT include unpublished interviews" do
-      get :index
-      expect(assigns(:interviews)).not_to eq interview5
-    end
+    context 'without a search query' do
+      it 'renders index action' do
+        get :index
 
-    it "renders the :index template" do
-      get 'index'
-      expect(response).to render_template :index
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:ok)
+        expect(klass).to have_received(:new).with(anything, anything)
+      end
     end
 
     context 'with a search query' do
@@ -43,16 +45,12 @@ RSpec.describe InterviewsController, type: :controller do
         }
       end
 
-      it 'gets all interviews matching the key words' do
+      it 'renders index action' do
         post :index, params: params
 
-        expect(assigns(:interviews)).to include(interview1, interview3)
-      end
-
-      it 'does NOT show interviews not matching the key words' do
-        post :index, params: params
-
-        expect(assigns(:interviews)).not_to include(interview2, interview4)
+        expect(assigns(:facade)).to eq facade
+        expect(response).to have_http_status(:ok)
+        expect(klass).to have_received(:new).with(anything, anything)
       end
     end
   end

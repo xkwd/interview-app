@@ -2,12 +2,7 @@ class InterviewsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :user_interview, :update]
 
   def index
-    @interviews = @search.result(distinct: true).includes(:answers).page(params[:page]).per(2)
-
-    if params[:q].blank?
-      @top_interviews = Interview.published.last(2)
-      @interviews = @interviews.padding(2)
-    end
+    @facade = IndexFacade.new(params, @search)
 
     respond_to do |format|
       format.html

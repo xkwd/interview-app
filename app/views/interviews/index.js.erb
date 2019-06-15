@@ -1,6 +1,6 @@
 $("#interviews").append("<%= j render 'interviews/interviews' %>");
-<% if @interviews.next_page %>
-  $(".pagination").replaceWith("<%= j paginate @interviews %>");
+<% if @facade.interviews.next_page %>
+  $(".pagination").replaceWith("<%= j paginate @facade.interviews %>");
 <% else %>
   $(window).off("scroll");
   $(".pagination").remove();
