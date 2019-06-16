@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       post :search, action: :index
     end
   end
+  namespace :user do
+    resources :interviews, only: [:index]
+  end
   devise_for :users
-  get 'my_interviews', to: 'interviews#user_interview'
   root 'interviews#index'
 end

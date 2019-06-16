@@ -25,7 +25,7 @@ class InterviewsController < ApplicationController
       flash[:success] =
         "Whoa, your interview has been created. \
         It just needs a review before going public."
-      redirect_to my_interviews_path
+      redirect_to user_interviews_path
     else
       render 'new'
     end
@@ -47,14 +47,9 @@ class InterviewsController < ApplicationController
 
     if @facade.save
       flash[:success] = 'The interview has been updated'
-      redirect_to my_interviews_path
+      redirect_to user_interviews_path
     else
       render 'edit'
     end
-  end
-
-  def user_interview
-    user_interviews = current_user.interviews.order('created_at DESC')
-    @decorated_user_interviews = InterviewDecorator.decorate_collection(user_interviews)
   end
 end

@@ -3,7 +3,7 @@
     .col-md-8.offset-md-2
       %table.table
         %tbody
-          - @decorated_user_interviews.each do |interview|
+          - @facade.interviews.each do |interview|
             %tr
               %td
                 %b= link_to truncate(interview.title, length: 60), interview_path(interview)

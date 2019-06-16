@@ -22,7 +22,8 @@
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               = t(:your_account)
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-              = link_to t(:my_interviews), my_interviews_path, class: "dropdown-item nav-item nav-link"
+              = link_to t(:my_interviews), user_interviews_path,
+                class: "dropdown-item nav-item nav-link"
               = link_to t(:edit_account), edit_user_registration_path, class: "dropdown-item nav-item nav-link"
               = link_to t(:logout), destroy_user_session_path, method: :delete, class: "dropdown-item nav-item nav-link"
         - else

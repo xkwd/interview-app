@@ -15,7 +15,6 @@ RSpec.describe InterviewsController, type: :controller do
 
   it { should route(:get, '/interviews/search').to(action: :index) }
   it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
-  it { should route(:get, '/my_interviews').to(action: :user_interview) }
   it { should use_before_action(:authenticate_user!) }
 
   describe 'GET #index' do
@@ -210,31 +209,6 @@ RSpec.describe InterviewsController, type: :controller do
         expect(assigns(:facade)).to eq facade
         expect(response).to have_http_status(:ok)
         expect(klass).to have_received(:new).with(anything)
-      end
-    end
-  end
-
-  describe "GET user_interview" do
-    context "user not signed in" do
-      it "redirects not logged user to sign_in" do
-        get :user_interview
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    context "user signed in" do
-      before do
-        sign_in user1
-      end
-
-      it "shows current user interviews" do
-        get :user_interview
-        expect(assigns(:decorated_user_interviews)).to include(interview1, interview2, interview3)
-      end
-
-      it "does NOT show interviews of other users" do
-        get :user_interview
-        expect(assigns(:decorated_user_interviews)).not_to include(interview4, interview5)
       end
     end
   end
