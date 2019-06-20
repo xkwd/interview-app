@@ -1,12 +1,4 @@
-class InterviewDecorator < SimpleDelegator
-  def self.decorate(interview)
-    new(interview)
-  end
-
-  def self.decorate_collection(collection)
-    collection.map { |interview| decorate(interview) }
-  end
-
+class InterviewDecorator < BaseDecorator
   def publication_status
     return "Published on #{published_at}" if published?
 
