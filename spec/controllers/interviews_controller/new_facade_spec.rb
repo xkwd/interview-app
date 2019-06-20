@@ -11,6 +11,16 @@ describe InterviewsController::NewFacade do
       allow(Interview).to receive_messages(new: :interview)
     end
 
+    it 'builds answers' do
+      facade.interview
+
+      expect(Answer)
+        .to have_received(:new)
+        .with(content: '', section_id: 1)
+        .with(content: '', section_id: 2)
+        .with(content: '', section_id: 3)
+    end
+
     it 'returns an interview' do
       facade.interview
 

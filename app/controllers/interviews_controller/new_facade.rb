@@ -14,12 +14,8 @@ class InterviewsController::NewFacade
   attr_reader :user_id
 
   def answers
-    answers = []
-
-    Section.ids.each do |section_id|
-      answers << Answer.new(content: '', section_id: section_id)
+    Section.ids.map do |section_id|
+      Answer.new(content: '', section_id: section_id)
     end
-
-    answers
   end
 end
