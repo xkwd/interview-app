@@ -1,4 +1,4 @@
-class CommentDecorator < SimpleDelegator
+class CommentDecorator < BaseDecorator
   def upvotes
     ratings.where(positive: true).count.to_s
   end
