@@ -8,8 +8,24 @@ RSpec.describe InterviewDecorator do
     instance_double(
       Interview,
       published?: published?,
-      created_at: Time.zone.parse('Wed, 17 Apr 2019 11:00:00')
+      created_at: Time.zone.parse('Wed, 17 Apr 2019 11:00:00'),
+      comments: :comments
     )
+  end
+
+  describe '#comments' do
+    before do
+      allow(CommentDecorator)
+        .to receive_messages(decorate_collection: :decorated_collection)
+    end
+
+    it 'decorates interview comments' do
+      decorated_interview.comments
+
+      expect(CommentDecorator)
+        .to have_received(:decorate_collection)
+        .with(:comments)
+    end
   end
 
   describe '#publication_status' do

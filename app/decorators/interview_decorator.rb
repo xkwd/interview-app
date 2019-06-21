@@ -1,4 +1,9 @@
 class InterviewDecorator < BaseDecorator
+  def comments
+    @comments ||=
+      CommentDecorator.decorate_collection(object.comments)
+  end
+
   def publication_status
     return "Published on #{published_at}" if published?
 
