@@ -2,7 +2,14 @@ require 'rails_helper'
 
 describe CommentDecorator do
   let(:decorator) { described_class.new(comment) }
-  let(:comment) { instance_double(Comment, ratings: Rating) }
+
+  let(:comment) do
+    instance_double(
+      Comment,
+      ratings: Rating,
+      comments: :comments
+    )
+  end
 
   before do
     allow(Rating)
@@ -10,6 +17,21 @@ describe CommentDecorator do
         where: [:rating1, :rating2],
         find_by: :rating
       )
+  end
+
+  describe '#comments' do
+    before do
+      allow(described_class)
+        .to receive_messages(decorate_collection: :decorated_collection)
+    end
+
+    it 'decorates comments of a comment' do
+      decorator.comments
+
+      expect(described_class)
+        .to have_received(:decorate_collection)
+        .with(:comments)
+    end
   end
 
   describe '#upvotes' do

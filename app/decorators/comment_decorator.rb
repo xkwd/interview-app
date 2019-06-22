@@ -1,4 +1,8 @@
 class CommentDecorator < BaseDecorator
+  def comments
+    CommentDecorator.decorate_collection(object.comments)
+  end
+
   def upvotes
     ratings.where(positive: true).count.to_s
   end
