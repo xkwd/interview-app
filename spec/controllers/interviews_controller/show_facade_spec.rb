@@ -6,6 +6,8 @@ describe InterviewsController::ShowFacade do
 
   describe '#interview' do
     before do
+      allow(InterviewDecorator)
+        .to receive_messages(new: :decorated_interview)
       allow(Interview)
         .to receive_messages(
           published: Interview,
@@ -13,10 +15,20 @@ describe InterviewsController::ShowFacade do
         )
     end
 
-    it 'returns an interview' do
+    it 'finds an interview' do
       facade.interview
 
-      expect(Interview).to have_received(:find).with(4)
+      expect(Interview)
+        .to have_received(:find)
+        .with(4)
+    end
+
+    it 'decorates an interview' do
+      facade.interview
+
+      expect(InterviewDecorator)
+        .to have_received(:new)
+        .with(:interview)
     end
   end
 end

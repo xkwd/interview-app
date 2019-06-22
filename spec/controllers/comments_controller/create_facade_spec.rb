@@ -40,13 +40,26 @@ describe CommentsController::CreateFacade do
 
   describe '#interview' do
     before do
-      allow(Interview).to receive_messages(find: :interview)
+      allow(InterviewDecorator)
+        .to receive_messages(new: :decorated_interview)
+      allow(Interview)
+        .to receive_messages(find: :interview)
     end
 
     it 'finds an interview' do
       facade.interview
 
-      expect(Interview).to have_received(:find).with(4)
+      expect(Interview)
+        .to have_received(:find)
+        .with(4)
+    end
+
+    it 'decorated an interview' do
+      facade.interview
+
+      expect(InterviewDecorator)
+        .to have_received(:new)
+        .with(:interview)
     end
   end
 end

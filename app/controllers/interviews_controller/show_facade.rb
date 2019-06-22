@@ -4,7 +4,10 @@ class InterviewsController::ShowFacade
   end
 
   def interview
-    @interview ||= Interview.published.find(params[:id])
+    @interview ||=
+      InterviewDecorator.new(
+        Interview.published.find(params[:id])
+      )
   end
 
   private

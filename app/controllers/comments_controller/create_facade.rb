@@ -8,7 +8,10 @@ class CommentsController::CreateFacade
   end
 
   def interview
-    @interview ||= Interview.find(params[:interview_id])
+    @interview ||=
+      InterviewDecorator.new(
+        Interview.find(params[:interview_id])
+      )
   end
 
   delegate :save, to: :comment
