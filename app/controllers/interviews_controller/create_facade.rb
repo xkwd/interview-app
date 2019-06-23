@@ -21,16 +21,18 @@ class InterviewsController::CreateFacade
   def interview_params
     params
       .require(:interview)
-      .permit(:title,
-              :description,
-              :country_id,
-              :cover,
-              answers_attributes: [
-                :id,
-                :content,
-                :section_id,
-                :image,
-              ])
+      .permit(
+        :title,
+        :description,
+        :country_id,
+        :cover,
+        answers_attributes: [
+          :id,
+          :content,
+          :section_id,
+          :image,
+        ]
+      )
       .merge(user_id: user_id)
   end
 end

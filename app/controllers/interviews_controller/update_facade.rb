@@ -18,15 +18,17 @@ class InterviewsController::UpdateFacade
   def interview_params
     params
       .require(:interview)
-      .permit(:title,
-              :description,
-              :country_id,
-              :cover,
-              answers_attributes: [
-                :id,
-                :content,
-                :section_id,
-                :image,
-              ])
+      .permit(
+        :title,
+        :description,
+        :country_id,
+        :cover,
+        answers_attributes: [
+          :id,
+          :content,
+          :section_id,
+          :image,
+        ]
+      )
   end
 end
