@@ -18,4 +18,8 @@ class CommentDecorator < BaseDecorator
   def downvoted_by?(user)
     ratings.find_by(positive: false, user: user).present?
   end
+
+  def published_at
+    object.created_at.strftime('%Y-%m-%d, %H:%M')
+  end
 end

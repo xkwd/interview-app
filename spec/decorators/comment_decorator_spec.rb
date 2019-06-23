@@ -7,7 +7,8 @@ describe CommentDecorator do
     instance_double(
       Comment,
       ratings: Rating,
-      comments: :comments
+      comments: :comments,
+      created_at: Time.zone.parse('2019-06-22 13:00')
     )
   end
 
@@ -87,6 +88,12 @@ describe CommentDecorator do
 
     it 'identifies whether a comment has been downvoted by a given user' do
       expect(decorator.downvoted_by?(:user)).to be true
+    end
+  end
+
+  describe '#publised_at' do
+    it 'returns formatted date' do
+      expect(decorator.published_at).to eq '2019-06-22, 13:00'
     end
   end
 end
