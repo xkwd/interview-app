@@ -12,4 +12,8 @@ class BaseDecorator < SimpleDelegator
   def object
     __getobj__
   end
+
+  def h
+    @h ||= ActionController::Base.helpers
+  end
 end

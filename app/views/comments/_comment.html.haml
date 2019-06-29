@@ -1,9 +1,6 @@
 .card.mt-2.comment
   .card-header
-    - if comment.user_id.blank?
-      %strong= comment.commenter_name
-    - else
-      %strong= link_to comment.user.name, "#"
+    %strong= comment.author_name
     %small.text-muted.left= comment.published_at
     %small.text-muted.right
       %div{ id: "rating-#{comment.id}" }

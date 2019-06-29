@@ -2,13 +2,17 @@ require 'rails_helper'
 
 describe CommentDecorator do
   let(:decorator) { described_class.new(comment) }
+  let(:user) { instance_double(User, name: 'Jim') }
+  let(:commenter_name) { 'Fred' }
 
   let(:comment) do
     instance_double(
       Comment,
       ratings: Rating,
       comments: :comments,
-      created_at: Time.zone.parse('2019-06-22 13:00')
+      created_at: Time.zone.parse('2019-06-22 13:00'),
+      user: user,
+      commenter_name: commenter_name
     )
   end
 
@@ -94,6 +98,22 @@ describe CommentDecorator do
   describe '#publised_at' do
     it 'returns formatted date' do
       expect(decorator.published_at).to eq '2019-06-22, 13:00'
+    end
+  end
+
+  describe '#author_name' do
+    context 'with a guest user' do
+      it 'returns a guest name' do
+        expect(decorator.author_name).to eq 'Fred'
+      end
+    end
+
+    context 'with a registered user' do
+      let(:commenter_name) { nil }
+
+      it 'returns a link with a user name' do
+        expect(decorator.author_name).to eq '<a href="#">Jim</a>'
+      end
     end
   end
 end

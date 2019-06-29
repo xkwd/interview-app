@@ -22,4 +22,8 @@ class CommentDecorator < BaseDecorator
   def published_at
     object.created_at.strftime('%Y-%m-%d, %H:%M')
   end
+
+  def author_name
+    object.commenter_name || h.link_to(object.user.name, '#')
+  end
 end
