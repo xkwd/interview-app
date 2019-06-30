@@ -38,6 +38,9 @@ class CommentsController::CreateFacade
   end
 
   def commentable_class
-    comment_params[:commentable_type].classify.constantize
+    comment_params[:commentable_type]
+      .classify
+      .gsub(/Decorator/, '')
+      .constantize
   end
 end
