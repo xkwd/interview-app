@@ -4,7 +4,9 @@ class CommentsController::CreateFacade
   end
 
   def comment
-    commentable.comments.new(comment_params)
+    Comment.new(
+      comment_params.merge(commentable_type: commentable_type)
+    )
   end
 
   def interview
@@ -33,14 +35,9 @@ class CommentsController::CreateFacade
       )
   end
 
-  def commentable
-    commentable_class.find(comment_params[:commentable_id])
-  end
-
-  def commentable_class
+  def commentable_type
     comment_params[:commentable_type]
       .classify
       .gsub(/Decorator/, '')
-      .constantize
   end
 end

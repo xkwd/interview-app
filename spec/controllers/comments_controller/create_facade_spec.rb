@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe CommentsController::CreateFacade do
   let(:facade) { described_class.new(params) }
-  let(:commentable_type) { 'Comment' }
+  let(:commentable_type) { 'Interview' }
 
   let(:params) do
     ActionController::Parameters.new(
@@ -18,45 +18,39 @@ describe CommentsController::CreateFacade do
     )
   end
 
+  let(:received_params) do
+    ActionController::Parameters.new(
+      commentable_type: 'Interview',
+      commentable_id: 7,
+      body: 'Some comment here',
+      commenter_name: 'John',
+      commenter_email: 'john@example.com',
+      user_id: nil
+    ).permit!
+  end
+
+  before do
+    allow(Comment).to receive_messages(new: :comment)
+  end
+
   describe '#comment' do
-    let(:commentable) { instance_double(Comment, comments: comments) }
-    let(:comments) { double }
-
-    before do
-      allow(Comment).to receive_messages(find: commentable)
-      allow(comments).to receive_messages(new: :comment)
-    end
-
-    it 'extracts an original class' do
+    it 'initializes a new comment' do
       facade.comment
 
       expect(Comment)
-        .to have_received(:find)
-        .with(7)
+        .to have_received(:new)
+        .with(received_params)
     end
 
-    it 'initializes a new comment' do
-      expect(facade.comment).to eq :comment
-    end
-
-    context 'with a decorator in the commetanble_type' do
+    context 'with a decorator in the commentable_type' do
       let(:commentable_type) { 'InterviewDecorator' }
-      let(:commentable) { instance_double(Interview, comments: comments) }
-
-      before do
-        allow(Interview).to receive_messages(find: commentable)
-      end
-
-      it 'extracts an original class' do
-        facade.comment
-
-        expect(Interview)
-          .to have_received(:find)
-          .with(7)
-      end
 
       it 'initializes a new comment' do
-        expect(facade.comment).to eq :comment
+        facade.comment
+
+        expect(Comment)
+          .to have_received(:new)
+          .with(received_params)
       end
     end
   end
