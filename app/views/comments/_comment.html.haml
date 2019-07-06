@@ -8,6 +8,12 @@
           locals: { comment: comment, interview: @facade.interview }
   .card-body
     %p= comment.body
-    .card-text.text-right.reply= link_to "REPLY", "#", id: comment.id, onclick: "event.preventDefault(); replyToCommentable.call(this, #{comment.id}, 'Comment')", class: "comment-reply-link btn btn-outline-primary btn-sm"
+    .card-text.text-right.reply
+      = link_to 'REPLY',
+        '#',
+        id: comment.id,
+        onclick: 'replyToCommentable.call(this)',
+        data: { commentable_id: comment.id, commentable_type: 'Comment'},
+        class: 'comment-reply-link btn btn-outline-primary btn-sm'
     - comment.comments.each do |nested_comment|
       = render partial: "comments/comment", object: nested_comment

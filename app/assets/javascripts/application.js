@@ -52,7 +52,10 @@ document.addEventListener("turbolinks:load", function() {
   });
 });
 
-function replyToCommentable(commentable_id, commentable_type) {
+function replyToCommentable() {
+  event.preventDefault();
+  var commentable_id = $(this).data('commentable-id');
+  var commentable_type = $(this).data('commentable-type');
   $(".comment-reply-link").show()
   $("#comment_commentable_type").val("" + commentable_type);
   $("#comment_commentable_id").val(commentable_id);
