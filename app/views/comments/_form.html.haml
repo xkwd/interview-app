@@ -3,7 +3,7 @@
     .card
       .card-header.text-left
         = f.hidden_field :commentable_id, value: commentable.id
-        = f.hidden_field :commentable_type, value: commentable.class.name
+        = f.hidden_field :commentable_type, value: commentable.decorated_class_name
         - if user_signed_in?
           %strong= f.label(:user_id, current_user.name)
           = f.hidden_field :user_id, value: current_user.id

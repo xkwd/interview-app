@@ -4,7 +4,7 @@
     id: commentable.id,
     onclick: 'replyToCommentable.call(this)',
     data: { commentable_id: commentable.id,
-            commentable_type: commentable.class},
+            commentable_type: commentable.decorated_class_name},
     class: 'comment-reply-link btn btn-outline-primary btn-lg'
 - commentable.comments.each do |comment|
   = render partial: "comments/comment", object: comment
@@ -14,5 +14,5 @@
     id: commentable.id,
     onclick: 'replyToCommentable.call(this)',
     data: { commentable_id: commentable.id,
-            commentable_type: commentable.class},
+            commentable_type: commentable.decorated_class_name},
     class: 'comment-reply-link btn btn-outline-primary btn-lg'
