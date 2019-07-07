@@ -7,6 +7,10 @@ class BaseDecorator < SimpleDelegator
     collection.map { |obj| new(obj) }
   end
 
+  def decorated_class_name
+    object.class.name
+  end
+
   private
 
   def object
