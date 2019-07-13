@@ -10,22 +10,41 @@
       %div.navbar-nav.ml-auto
         - if user_signed_in?
           .nav-item
-            = link_to t(:add_interview), new_interview_path, type: "button", class: "btn btn-outline-warning"
+            = link_to t(:add_interview),
+              new_interview_path,
+              type: "button",
+              class: "btn btn-outline-warning"
         .nav-item
-          = search_form_for @search, url: search_interviews_path, html: { method: :post, class: "form-inline mx-2" } do |f|
+          = search_form_for @search,
+            url: search_interviews_path,
+            html: { method: :post, class: "form-inline mx-2" } do |f|
             .input-group
               .input-group-prepend
-                = f.submit t(:search), type: "submit", class: "btn btn-info btn-outline-light"
-              = f.search_field :title_or_description_or_answers_content_cont, placeholder: t(:search_placeholder), class: "form-control"
+                = f.submit t(:search),
+                  type: "submit",
+                  class: "btn btn-info btn-outline-light"
+              = f.search_field :title_or_description_or_answers_content_cont,
+                placeholder: t(:search_placeholder),
+                class: "form-control"
         - if user_signed_in?
           .nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               = t(:your_account)
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-              = link_to t(:my_interviews), user_interviews_path,
+              = link_to t(:my_interviews),
+                user_interviews_path,
                 class: "dropdown-item nav-item nav-link"
-              = link_to t(:edit_account), edit_user_registration_path, class: "dropdown-item nav-item nav-link"
-              = link_to t(:logout), destroy_user_session_path, method: :delete, class: "dropdown-item nav-item nav-link"
+              = link_to t(:edit_account),
+                edit_user_registration_path,
+                class: "dropdown-item nav-item nav-link"
+              = link_to t(:logout),
+                destroy_user_session_path,
+                method: :delete,
+                class: "dropdown-item nav-item nav-link"
         - else
-          = link_to t(:sign_up), new_user_registration_path, class: "nav-item nav-link"
-          = link_to t(:login), new_user_session_path, class: "nav-item nav-link"
+          = link_to t(:sign_up),
+            new_user_registration_path,
+            class: "nav-item nav-link"
+          = link_to t(:login),
+            new_user_session_path,
+            class: "nav-item nav-link"

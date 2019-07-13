@@ -11,17 +11,22 @@
           .card.bg-light
             .card-body
               %h3.card-title= f.label :title
-              = f.text_field :title, placeholder: t(".title_placeholder"), class: "form-control"
+              = f.text_field :title,
+                placeholder: t(".title_placeholder"),
+                class: "form-control"
         .form-group
           .card.bg-light
             .card-body
               %h3.card-title= f.label :description
-              %p= f.text_area :description, placeholder: t(".description_placeholder"), class: "form-control"
+              %p= f.text_area :description,
+                  placeholder: t(".description_placeholder"),
+                  class: "form-control"
         .form-group
           .card.bg-light
             .card-body
               %h3.card-title= f.label :cover
-              = image_tag "#{@facade.interview.cover_url}" if @facade.interview.cover?
+              - if @facade.interview.cover?
+                = image_tag "#{@facade.interview.cover_url}"
               %p= f.file_field :cover, class: "form-control"
               = f.hidden_field :cover_cache
         .form-row
@@ -37,11 +42,17 @@
                 = a.fields_for :section do |s|
                   %h3.card-title= s.label(:name, s.object.name)
                   %span.instructions{"data-container" => "body", "data-content" => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.", "data-placement" => "top", "data-toggle" => "popover", :type => "button"} instructions
-                  %small.section-description.form-text.text-muted= s.label(:description, s.object.description)
+                  %small.section-description.form-text.text-muted
+                    = s.label(:description, s.object.description)
                   %h2= s.hidden_field :id
-                %p= a.text_area :content, placeholder: t(".answer_placeholder") , class: "form-control", rows: "5"
+                %p= a.text_area :content,
+                    placeholder: t(".answer_placeholder"),
+                    class: "form-control",
+                    rows: "5"
                 %p= a.file_field :image, class: "form-control"
                 %p= a.hidden_field :section_id
         .row
           .col-sm-6.offset-sm-3
-            = f.submit t(".create"), type: "submit", class: "btn btn-info btn-block"
+            = f.submit t(".create"),
+              type: "submit",
+              class: "btn btn-info btn-block"
