@@ -25,6 +25,7 @@ gem 'puma', '~> 3.12', '>= 3.12.1'
 gem 'rails', '~> 5.2.3'
 gem 'ransack', '~> 2.1', '>= 2.1.1'
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
+gem 'slim-rails', '~> 3.2'
 gem 'turbolinks', '~> 5.2'
 gem 'uglifier', '~> 4.1', '>= 4.1.20'
 
