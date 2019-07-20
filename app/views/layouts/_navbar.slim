@@ -1,13 +1,20 @@
-%nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
-  %div.container
-    %nav.navbar.navbar-light.bg-faded
+nav.navbar.navbar-expand-sm.navbar-dark.bg-dark
+  div.container
+    nav.navbar.navbar-light.bg-faded
       = link_to root_path, class: "navbar-brand" do
-        Interviews
-        %small= t(:motto)
-    %button.navbar-toggler{"aria-controls" => "mainNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#mainNav", "data-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
-    %div#mainNav.collapse.navbar-collapse
-      %div.navbar-nav.ml-auto
+        | Interviews
+        small= t(:motto)
+    button.navbar-toggler[
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      data-target="#mainNav"
+      data-toggle="collapse"
+      type="button"
+    ]
+      span.navbar-toggler-icon
+    div#mainNav.collapse.navbar-collapse
+      div.navbar-nav.ml-auto
         - if user_signed_in?
           .nav-item
             = link_to t(:add_interview),
@@ -28,9 +35,15 @@
                 class: "form-control"
         - if user_signed_in?
           .nav-item.dropdown
-            %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            a#navbarDropdown.nav-link.dropdown-toggle[
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+            ]
               = t(:your_account)
-            .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            .dropdown-menu aria-labelledby="navbarDropdown"
               = link_to t(:my_interviews),
                 user_interviews_path,
                 class: "dropdown-item nav-item nav-link"

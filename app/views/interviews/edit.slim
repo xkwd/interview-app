@@ -3,29 +3,29 @@
     .col-md-8.offset-md-2
       = form_for @facade.interview do |f|
         - if @facade.interview.errors.any?
-          %div Yay, #{pluralize(@facade.interview.errors.count, "error")}:
-          %ul
+          div Yay, #{pluralize(@facade.interview.errors.count, "error")}:
+          ul
           - @facade.interview.errors.full_messages.each do |msg|
-            %li= msg
+            li= msg
         .form-group
           .card.bg-light
             .card-body
-              %h3.card-title= f.label :title
+              h3.card-title= f.label :title
               = f.text_field :title, class: "form-control"
         .form-group
           .card.bg-light
             .card-body
-              %h3.card-title= f.label :description
-              %p= f.text_area :description, class: "form-control"
+              h3.card-title= f.label :description
+              p= f.text_area :description, class: "form-control"
         .form-group
           .card.bg-light
             .card-body
-              %h3.card-title= f.label :cover
+              h3.card-title= f.label :cover
               = image_tag "#{@facade.interview.cover_url}",
                 class: "img-fluid form-control"
               .form-row
                 .form-group.col-md-8
-                  %p= f.file_field :cover, class: "form-control"
+                  p= f.file_field :cover, class: "form-control"
                 .form-group.col-md-4
                   .form-check.form-inline.form-control
                     = f.check_box :remove_cover, class: "form-check-input"
@@ -46,18 +46,30 @@
             .card-body
               = f.fields_for :answers do |a|
                 = a.fields_for :section do |s|
-                  %h3= s.label(:name, s.object.name)
-                  %span.instructions{"data-container" => "body", "data-content" => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.", "data-placement" => "top", "data-toggle" => "popover", :type => "button"} instructions
-                  %small.section-description.form-text.text-muted= s.label(:description, s.object.description)
-                %p= a.text_area :content, class: "form-control", rows: "5"
-                %div= image_tag "#{a.object.image_url(:thumb)}", class: "img-fluid form-control"
+                  h3= s.label(:name, s.object.name)
+                  span.instructions[
+                    data-container="body"
+                    data-content="Vivamus sagittis lacus vel augue"
+                    data-placement="top"
+                    data-toggle="popover"
+                    type="button"
+                  ] instructions
+                  small.section-description.form-text.text-muted
+                    = s.label(:description, s.object.description)
+                p= a.text_area :content, class: "form-control", rows: "5"
+                div= image_tag "#{a.object.image_url(:thumb)}",
+                     class: "img-fluid form-control"
                 .form-row
                   .form-group.col-md-8
-                    %p= a.file_field :image, class: "form-control"
+                    p= a.file_field :image, class: "form-control"
                   .form-group.col-md-4
                     .form-check.form-inline.form-control
                       = a.check_box :remove_image, class: "form-check-input"
-                      = a.label :remove_image, t(".remove_image"), class: "form-check-label"
+                      = a.label :remove_image,
+                        t(".remove_image"),
+                        class: "form-check-label"
         .row
           .col-sm-6.offset-sm-3
-            = f.submit t(".update_interview"), type: "submit", class: "btn btn-info btn-block"
+            = f.submit t(".update_interview"),
+              type: "submit",
+              class: "btn btn-info btn-block"

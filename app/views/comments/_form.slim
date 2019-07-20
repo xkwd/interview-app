@@ -7,7 +7,7 @@
         = f.hidden_field :commentable_type,
           value: commentable.decorated_class_name
         - if user_signed_in?
-          %strong= f.label(:user_id, current_user.name)
+          strong= f.label(:user_id, current_user.name)
           = f.hidden_field :user_id, value: current_user.id
           .right
             = f.submit t("comments.create_comment"),

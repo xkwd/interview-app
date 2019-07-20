@@ -1,29 +1,31 @@
 - title @facade.interview.meta_title
 - description @facade.interview.meta_description
 .container-fluid.px-0
-  .img-container.top-interview-img{style: "background-image: url('#{@facade.interview.cover_url}');"}
+  .img-container.top-interview-img[
+    style="background-image: url('#{@facade.interview.cover_url}');"
+  ]
   .container
     .row
       .col-lg-7.offset-lg-2
         .card
           .card-body
             .interview-title
-              %h3.text-justify= @facade.interview.title
-            %p.interview-description= @facade.interview.description
+              h3.text-justify= @facade.interview.title
+            p.interview-description= @facade.interview.description
             .interview-country
-              %span.badge.badge-warning= @facade.interview.country.name
+              span.badge.badge-warning= @facade.interview.country.name
             - @facade.interview.answers.each do |answer|
               .section
-                %div.float-left
-                  %h3.section-name= answer.section.name.upcase
+                div.float-left
+                  h3.section-name= answer.section.name.upcase
                   = link_to "#{answer.image_url}",
                     data: {lightbox: "#{answer.image_identifier}"} do
                     = image_tag "#{answer.image_url(:thumb)}",
                       class: "section-img"
-                %div
-                  %p.section-text.text-justify=  answer.content
+                div
+                  p.section-text.text-justify=  answer.content
         .discussion-separator
-        %h4.discussion-title DISCUSSION
+        h4.discussion-title DISCUSSION
         .comments
           = render partial: "comments/comments",
             locals: { commentable: @facade.interview }

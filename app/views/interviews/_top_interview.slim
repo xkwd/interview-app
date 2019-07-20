@@ -1,0 +1,10 @@
+.interview-thumb
+  = link_to interview_path(interview) do
+    .img-container.top-interview-thumb[
+      style="background-image: url('#{interview.cover_url}');"
+    ]
+    .interview-thumb-title
+      span= interview.country.name.upcase
+      h3= truncate(interview.title, length: 60)
+  .interview-thumb-description
+    p=  interview.description
