@@ -1,29 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe InterviewsController, type: :controller do
-  let!(:user)  { create(:user) }
-  let!(:user1) { create(:user) }
-  let!(:user2) { create(:user) }
-  let(:country) { create(:country) }
-  let(:interview) { build(:interview, user: user, country: country) }
-  let(:invalid_interview) { build(:interview, title: nil) }
-  let!(:interview1) { create(:interview, user: user1, title: "Green yellow blue") }
-  let!(:interview2) { create(:interview, user: user1, title: "Green blue") }
-  let!(:interview3) { create(:interview, user: user1, title: "Yellow blue") }
-  let!(:interview4) { create(:interview, user: user2) }
-  let!(:interview5) { create(:interview, user: user2, published: false) }
+  let(:user) { create(:user) }
 
-  it { should route(:get, '/interviews/search').to(action: :index) }
-  it { should route(:get, '/interviews/1').to(action: :show, id: 1) }
-  it { should use_before_action(:authenticate_user!) }
+  before do
+    allow(klass).to receive_messages(new: facade)
+  end
 
   describe 'GET #index' do
     let(:klass) { described_class::IndexFacade }
     let(:facade) { instance_double(klass) }
-
-    before do
-      allow(klass).to receive_messages(new: facade)
-    end
 
     context 'without a search query' do
       it 'renders index action' do
@@ -59,10 +45,6 @@ RSpec.describe InterviewsController, type: :controller do
     let(:facade) { instance_double(klass) }
     let(:params) { { id: 4 } }
 
-    before do
-      allow(klass).to receive_messages(new: facade)
-    end
-
     it 'renders show action' do
       get :show, params: params
 
@@ -77,8 +59,6 @@ RSpec.describe InterviewsController, type: :controller do
     let(:facade) { instance_double(klass) }
 
     before do
-      allow(klass).to receive_messages(new: facade)
-
       sign_in user
     end
 
@@ -97,7 +77,6 @@ RSpec.describe InterviewsController, type: :controller do
     let(:params) { { title: 'title' } }
 
     before do
-      allow(klass).to receive_messages(new: facade)
       allow(facade).to receive_messages(save: save)
 
       sign_in user
@@ -137,7 +116,6 @@ RSpec.describe InterviewsController, type: :controller do
     let(:facade) { instance_double(klass) }
 
     before do
-      allow(klass).to receive_messages(new: facade)
       allow(facade).to receive_messages(authorized?: authorized?)
 
       sign_in user
@@ -182,7 +160,6 @@ RSpec.describe InterviewsController, type: :controller do
     end
 
     before do
-      allow(klass).to receive_messages(new: facade)
       allow(facade).to receive_messages(save: save)
 
       sign_in user
