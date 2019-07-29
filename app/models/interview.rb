@@ -1,9 +1,10 @@
 class Interview < ApplicationRecord
   extend FriendlyId
-  
+
   has_many :answers
   has_many :sections, through: :answers
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
+
   belongs_to :user
   belongs_to :country
 

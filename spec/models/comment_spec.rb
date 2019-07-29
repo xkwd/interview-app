@@ -10,7 +10,7 @@ describe Comment, type: :model do
   describe 'relations' do
     it { should belong_to(:commentable) }
     it { should belong_to(:user).without_validating_presence }
-    it { should have_many(:comments) }
+    it { should have_many(:comments).dependent(:destroy) }
     it { should have_many(:ratings) }
   end
 
@@ -22,7 +22,7 @@ describe Comment, type: :model do
 
     context 'when created by a guest user' do
       let(:anonymous_comment) { create(:comment, user_id: nil) }
-      
+
       it 'does NOT validate user_id' do
         expect(anonymous_comment).to be_valid
       end

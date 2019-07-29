@@ -11,6 +11,7 @@ describe Interview, type: :model do
   context 'assotiations' do
     it { should have_many(:answers) }
     it { should have_many(:sections).through(:answers) }
+    it { should have_many(:comments).dependent(:destroy) }
 
     it { should belong_to(:user) }
     it { should belong_to(:country) }
