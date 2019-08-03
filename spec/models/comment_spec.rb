@@ -4,6 +4,7 @@ describe Comment, type: :model do
   describe 'db' do
     describe 'indexes' do
       it { should have_db_index(:user_id) }
+      it { should have_db_index([:commentable_type, :commentable_id]) }
     end
   end
 
