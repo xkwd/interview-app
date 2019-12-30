@@ -1,15 +1,16 @@
-class InterviewDecorator < Draper::Decorator
-  delegate_all
+class InterviewDecorator < BaseDecorator
+  def comments
+    @comments ||=
+      CommentDecorator.decorate_collection(object.comments)
+  end
 
   def publication_status
-    if published?
-      "Published at #{published_at}"
-    else
-      "Unpublished"
-    end
+    return "Published on #{published_at}" if published?
+
+    'Unpublished'
   end
 
   def published_at
-    object.created_at.strftime("%A, %B %e")
+    created_at.strftime('%A, %B %e, %Y')
   end
 end

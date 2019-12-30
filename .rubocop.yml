@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AlignParameters:
   Enabled: false
 AmbiguousBlockAssociation:
@@ -7,8 +9,6 @@ ClassLength:
   Max: 200
 Documentation:
   Enabled: false
-LineLength:
-  Max: 120
 MethodLength:
   CountComments: false
   Max: 20
@@ -28,7 +28,6 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
-    - 'Gemfile'
     - 'Rakefile'
 
 Layout/MultilineOperationIndentation:
@@ -65,3 +64,15 @@ Layout/ExtraSpacing:
   ForceEqualSignAlignment: false
   Exclude:
     - 'spec/factories/**/*'
+
+RSpec/ImplicitExpect:
+  EnforcedStyle: should
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/controllers/**/*
+    - spec/system/**/*
+    - spec/requests/**/*

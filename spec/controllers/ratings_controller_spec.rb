@@ -1,59 +1,29 @@
 require 'rails_helper'
 
 describe RatingsController, type: :controller do
-  let!(:user)       { create(:user) }
-  let(:interview)   { create(:interview) }
-  let(:comment)     { create(:comment) }
-  let(:params)      { { comment_id: comment.id, interview_id: interview.id } }
+  describe 'POST #create' do
+    let(:klass) { described_class::CreateFacade }
+    let(:facade) { instance_double(klass) }
+    let(:user) { instance_double(User, id: 14) }
 
-  shared_examples 'handling votes and redirecting' do
-    context 'and has not voted yet' do
-      it 'adds a vote to a comment' do
-        expect { subject }.to change(Rating, :count).by(1)
-      end
+    let(:params) do
+      {
+        interview_id: 4,
+        comment_id: 7
+      }
     end
 
-    context 'and has already voted' do
-      it 'does not add a vote to a comment' do
-        subject
-        expect { subject }.not_to change(Rating, :count)
-      end
+    before do
+      allow(controller).to receive(:current_or_guest_user).and_return(user)
+      allow(klass).to receive_messages(call: facade)
     end
 
-    it 'redirects to an interview page' do
-      expect(subject).to redirect_to(interview_path(interview))
-    end
-  end
+    it 'renders create action' do
+      post :create, xhr: true, params: params
 
-  describe 'POST upvote' do
-    let(:subject) { post :upvote, params: params }
-
-    context 'when a guest user is upvoting' do
-      include_examples 'handling votes and redirecting'
-    end
-
-    context 'when a signed in user is upvoting' do
-      before do
-        sign_in user
-      end
-
-      include_examples 'handling votes and redirecting'
-    end
-  end
-
-  describe 'POST downvote' do
-    let(:subject) { post :downvote, params: params }
-
-    context 'when a guest user is downvoting' do
-      include_examples 'handling votes and redirecting'
-    end
-
-    context 'when a signed in user is downvoting' do
-      before do
-        sign_in user
-      end
-
-      include_examples 'handling votes and redirecting'
+      expect(assigns(:facade)).to eq facade
+      expect(response).to have_http_status(:ok)
+      expect(klass).to have_received(:call).with(anything, 14)
     end
   end
 end

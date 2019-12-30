@@ -1,0 +1,18 @@
+.text-center.mt-2
+  = link_to 'Leave a comment',
+    '#',
+    id: commentable.id,
+    onclick: 'replyToCommentable.call(this)',
+    data: { commentable_id: commentable.id,
+            commentable_type: commentable.decorated_class_name},
+    class: 'comment-reply-link btn btn-outline-primary btn-lg'
+- commentable.comments.each do |comment|
+  = render partial: "comments/comment", object: comment
+.text-center.mt-2
+  = link_to 'Leave a comment',
+    '#',
+    id: commentable.id,
+    onclick: 'replyToCommentable.call(this)',
+    data: { commentable_id: commentable.id,
+            commentable_type: commentable.decorated_class_name},
+    class: 'comment-reply-link btn btn-outline-primary btn-lg'

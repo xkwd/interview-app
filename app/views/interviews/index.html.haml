@@ -1,8 +1,0 @@
-- if @top_interviews.present?
-  = render partial: "interviews/top_interviews", object: @top_interviews 
-.container.px-0
-  .row.no-gutters
-    .col-lg-8.offset-lg-2
-      #interviews
-        = render partial: "interviews/interviews", object: @interviews
-      = paginate @interviews
